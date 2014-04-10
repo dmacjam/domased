@@ -1,0 +1,29 @@
+<% @page_title='Podujatia' %>
+<div class="events index">
+  <h2>Events</h2>
+
+  <%= link_to("Pridaj nove podujatie", {:action => :new }, :class => 'action new') %>
+
+  <table class="table" summary="Subject list">
+    <tr class="header">
+      <th>Nazov</th>
+      <th>Datum</th>
+      <th>Typ</th>
+      <th>Popis</th>
+      <th>Akcie</th>
+    </tr>
+    <% @events.each do |event| %>
+        <tr>
+          <td><%= event.name %></td>
+          <td><%= event.date %></td>
+          <td><%= event.type.nil?  ? 'Nespecifikovane' : event.type.name  %></td>
+          <td><%= truncate(event.description, length: 20) %></td>
+          <td class="actions">
+            <%= link_to("Show", {:action => 'show', :id => event.id}, :class => 'action show') %>
+            <%= link_to("Edit", {:action => 'edit', :id => event.id}, :class => 'action edit') %>
+            <%= link_to("Delete", {:action => 'delete', :id => event.id}, :class => 'action delete') %>
+          </td>
+        </tr>
+    <% end %>
+  </table>
+</div>

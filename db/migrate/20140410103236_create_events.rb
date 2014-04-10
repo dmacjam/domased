@@ -1,12 +1,12 @@
 class CreateEvents < ActiveRecord::Migration
   def up
     create_table :events do |t|
-      t.integer "type_id"
+      t.integer "type_id", :default => 0
       t.integer "user_id"
       t.integer "locality_id"
       t.string "name", :null => false
-      t.date "date"
-      t.time "time"
+      t.datetime "date"
+      #t.time "time"
       t.text "description"
       t.integer "ticket_price"
       t.string "fb_id_number"

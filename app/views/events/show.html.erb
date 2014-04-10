@@ -1,0 +1,19 @@
+<%= link_to("<< Spat na zoznam podujati", {:action => :index}) %>
+
+<div class="table-bordered">
+  <h1><%= @event.name %></h1>
+  <table>
+    <tr>
+    <td>Datum</td>
+    <td><%= @event.date %></td>
+    </tr>
+    <tr>
+      <td>Typ: </td>
+      <td><%= @event.type.nil?  ? 'Nespecifikovane' : @event.type.name %></td>
+    </tr>
+  </table>
+    <b>Popis:</b><br>
+    <%= @event.description %>
+
+
+</div>

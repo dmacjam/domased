@@ -1,0 +1,22 @@
+<%= link_to("<< Spat na zoznam podujati", {:action => 'index'}, :class => 'back-link') %>
+
+<h2>Upravenie podujatia</h2>
+
+<%= form_for(:event, :url => {:action => 'update', :id => @event.id }) do |f| %>
+    <div class="form-group">
+      <%= f.label 'Nazov' %>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label 'Popis' %>
+      <%= f.text_area :description, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label 'Typ' %>
+      <%= f.text_area :type_id, class: 'form-control' %>
+    </div>
+
+    <%= f.submit 'Update!', class: 'btn btn-default' %>
+<% end %>
