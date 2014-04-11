@@ -1,2 +1,14 @@
 module ApplicationHelper
+
+  # Vrati cely nazov stranky pre kazdu podstranku
+  def full_title(page_title)
+    base_title='Domased'
+    if page_title.nil?
+      base_title
+    else
+      "#{base_title} | #{page_title}"
+    end
+  end
+
+
 end

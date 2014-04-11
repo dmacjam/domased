@@ -9,10 +9,12 @@
   <meta name="author" content="Jakub Macina">
   <link rel="shortcut icon" href="">
 
-  <title>Domased | <%= @page_title || 'Site' %></title>
+  <!-- Zobrazi page_title aj ked nie je instancia, app helper-->
+  <title><%= full_title(@page_title) %></title>
 
   <!-- Bootstrap core CSS -->
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+  <!--<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet"> -->
+  <%= stylesheet_link_tag 'application', media: :all %>
 
   <!-- Custom styles for this template -->
   <link href="jumbotron-narrow.css" rel="stylesheet">
@@ -26,31 +28,23 @@
 
 <body>
 
-<div class="container">
-  <div class="header">
-    <ul class="nav nav-pills pull-right">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-    <h3 class="text-muted">Domased</h3>
-  </div>
 
-  <% if !flash[:notice].blank? %>
+<%= render 'layouts/header' %>
+
+<!--
+<% if !flash[:notice].blank? %>
       <div class='bg-info'>
         <%= flash[:notice] %>
       </div>
-  <% end %>
+  <% end %>-->
 
-  <hr>
+<div class="container">
   <%= yield %>
-  <hr>
+</div>
 
-  <div class="footer">
-    <p>&copy; Jakub Mačina 2014</p>
-  </div>
 
-</div> <!-- /container -->
+
+<%= render 'layouts/footer' %>
 
 
 

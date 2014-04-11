@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="header">
+    <ul class="nav nav-pills pull-right">
+      <li><%= link_to('Home', {:controller => 'public', :action => 'home'}) %> </li>
+      <li><%= link_to('About', {:controller => 'public', :action => 'about'}) %></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <!--<h3 class='text-muted'>Domased</h3>-->
+    <%= link_to('Domased', {:controller => 'public', :action => 'home'}, :class => 'navbar-brand',
+                :class => 'header_space') %>
+  </div>
+</div>
