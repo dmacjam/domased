@@ -5,18 +5,27 @@ class EventsController < ApplicationController
     @events=Event.all
   end
 
+  def search
+    if params[:search_city].present?
+      @events=Event.near(params[:search_city],20)
+    else
+      @events=Event.all
+    end
+  end
+
   def show
     @event=Event.find(params[:id])
   end
 
   def new
     @event=Event.new({:description => 'Opis podujatia'})
+
   end
 
   def create
     @event=Event.new(event_params)
     if @event.save
-      flash[:notice]="Podujatie bolo uspesne vytvorene."
+      flash[:success]="Podujatie bolo uspesne vytvorene."
       redirect_to(:action => 'index')
     else
       render('new')
@@ -51,6 +60,6 @@ class EventsController < ApplicationController
   private
 
     def event_params
-      params.require(:event).permit(:name,:description,:type_id,:date)
+      params.require(:event).permit(:name,:description,:type_id,:date, :address)
     end
 end

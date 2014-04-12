@@ -1,9 +1,7 @@
 
-
-<div class="formular">
   <%= link_to("<< Spat na zoznam podujati", {:action => 'index'}, :class => 'back-link') %>
 
-  <h2 class="stred">Pridanie noveho podujatia</h2>
+  <h2 class="center">Pridanie noveho podujatia</h2>
 
   <%= error_messages_for(@event) %>
 
@@ -18,24 +16,28 @@
         <%= f.text_area(:description, :size=> '40x5' ,class: 'form-control') %>
       </div>
 
-    <div class="form-group">
-      <%= f.label 'Typ podujatia: ' %><br>
-      <% Type.all.each do |type| %>
+      <div class="form-group">
+        <%= f.label 'Typ podujatia: ' %><br>
+        <% Type.all.each do |type| %>
 
-          <%= f.label(type.name) %>
-          <%= f.radio_button(:type_id,type.id) %>
-          <!--<br>-->
-      <%end %>
-    </div>
+            <%= f.label(type.name) %>
+            <%= f.radio_button(:type_id,type.id) %>
+            <!--<br>-->
+        <%end %>
+      </div>
 
-    <div class="form-group">
-      <%= f.label 'Datum: ' %>
-      <%= f.datetime_select(:date, :order => [:day, :month, :year, :hour, :minute],
-                            start_year: Time.now.year, :minute_step => 15 ) %>
-    </div>
+      <div class="form-group">
+        <%= f.label 'Datum: ' %>
+        <%= f.datetime_select(:date, :order => [:day, :month, :year, :hour, :minute],
+                              start_year: Time.now.year, :minute_step => 15 ) %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label 'Mesto' %>
+        <%= f.text_field(:address, :size=> 30 ,class: 'form-control') %>
+      </div>
 
       <div class="stred">
-      <%= f.submit('Publish!', :class => ['btn','btn-lg','btn-success']) %>
+        <%= f.submit('Publish!', :class => ['btn','btn-lg','btn-success']) %>
       </div>
   <% end %>
-</div>

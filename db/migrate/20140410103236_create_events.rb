@@ -3,10 +3,12 @@ class CreateEvents < ActiveRecord::Migration
     create_table :events do |t|
       t.integer "type_id", :default => 0
       t.integer "user_id"
-      t.integer "locality_id"
       t.string "name", :null => false
       t.datetime "date"
-      #t.time "time"
+      t.string "city"
+      t.string "address"
+      t.float "latitude"
+      t.float "longitude"
       t.text "description"
       t.integer "ticket_price"
       t.string "fb_id_number"
@@ -14,9 +16,11 @@ class CreateEvents < ActiveRecord::Migration
       t.timestamps
     end
 
+=begin
     add_index("events","type_id")     #vyhladavanie podla typu
     add_index("events","date")        #vyhladavanie podla datumu
     add_index("events","name")        #vyhladavanie podla mena
+=end
   end
 
   def down

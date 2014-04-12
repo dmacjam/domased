@@ -27,9 +27,12 @@ ActiveRecord::Schema.define(version: 20140412081106) do
   create_table "events", force: true do |t|
     t.integer  "type_id",      default: 0
     t.integer  "user_id"
-    t.integer  "locality_id"
     t.string   "name",                     null: false
     t.datetime "date"
+    t.string   "city"
+    t.string   "address"
+    t.float    "latitude"
+    t.float    "longitude"
     t.text     "description"
     t.integer  "ticket_price"
     t.string   "fb_id_number"
@@ -37,10 +40,6 @@ ActiveRecord::Schema.define(version: 20140412081106) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "events", ["date"], name: "index_events_on_date", using: :btree
-  add_index "events", ["name"], name: "index_events_on_name", using: :btree
-  add_index "events", ["type_id"], name: "index_events_on_type_id", using: :btree
 
   create_table "locations", force: true do |t|
     t.string   "city"

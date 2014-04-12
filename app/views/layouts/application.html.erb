@@ -31,21 +31,23 @@
 
 <%= render 'layouts/header' %>
 
-
+<div class="jumbotron">
 <div class="container">
 
-  <% if !flash[:notice].blank? %>
-      <div class='notifikacia'>
-        <%= flash[:notice] %>
+  <% flash.each do |key,value| %>
+      <div class='alert alert-<%= key %>'>
+        <%= value %>
       </div>
   <% end %>
 
   <%= yield %>
 </div>
+</div>
 
 
 
 <%= render 'layouts/footer' %>
+<%= debug(params) if Rails.env.development? %>
 
 
 

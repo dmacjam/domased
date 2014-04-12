@@ -1,7 +1,9 @@
 <% @page_title = 'Home' %>
-<div class="jumbotron">
+<!--<div class="jumbotron">-->
+<div class="center uvod">
 <h1><strong>domased.sk</strong><br>
 <small>Najväčší vyhľadávač podujatí v tvojom okolí.</small></h1>
   <%= link_to('Pridaj nové podujatie', {:controller => 'events', :action => 'new'}, :class => ['btn-warning','btn']) %>
-  <%= link_to('Vyhladaj podujatie', '#', :class => ['btn-success','btn']) %>
+  <%= link_to('Vyhľadaj podujatie', {:controller => 'events', :action => 'search'}, :class => ['btn-success','btn']) %>
+<!--</div>-->
 </div>

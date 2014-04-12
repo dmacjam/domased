@@ -1,19 +1,18 @@
 <%= link_to("<< Spat na zoznam podujati", {:action => :index}) %>
 
-<div class="table-bordered">
-  <h1><%= @event.name %></h1>
-  <table>
-    <tr>
-    <td>Datum</td>
-    <td><%= @event.date %></td>
-    </tr>
-    <tr>
-      <td>Typ: </td>
-      <td><%= @event.type.nil?  ? 'Nespecifikovane' : @event.type.name %></td>
-    </tr>
-  </table>
-    <b>Popis:</b><br>
-    <%= @event.description %>
+<div class="row">
+  <div class="col-md-6">
+    <h1><%= @event.name %></h1>
+    <%= @event.date.strftime('%d.%m.%Y') %><br>
+    <%= @event.city %><br>
+    <%= @event.type.nil?  ? 'Nespecifikovane' : @event.type.name %><br>
+    <small><%= @event.description %></small>
 
+  </div>
+  <div class="col-md-6">
+    <%= image_tag("http://maps.googleapis.com/maps/api/staticmap?size=400x300&maptype=roadmap&sensor=false&zoom=15&markers=#{
+    @event.latitude},#{@event.longitude}") %>
+  </div>
 
 </div>
+

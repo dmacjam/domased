@@ -1,8 +1,18 @@
-<% @page_title='Podujatia' %>
+<% @page_title='Podujatia podla mesta' %>
 <div class="events index">
   <h2>Events</h2>
 
   <%= link_to("Pridaj nove podujatie", {:action => :new }, :class => 'action new') %>
+
+
+  <div class="formular">
+  <%= form_tag('/events/search', :method => 'get', :class => 'form-search') do %>
+      <%= text_field_tag(:search_city, params[:search_city]) %>
+      <%= submit_tag('Hladaj', :name => nil)%>
+  <% end %>
+  </div>
+
+
 
   <table class="table" summary="Subject list">
     <tr class="header">
