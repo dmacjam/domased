@@ -31,14 +31,15 @@
 
 <%= render 'layouts/header' %>
 
-<!--
-<% if !flash[:notice].blank? %>
-      <div class='bg-info'>
-        <%= flash[:notice] %>
-      </div>
-  <% end %>-->
 
 <div class="container">
+
+  <% if !flash[:notice].blank? %>
+      <div class='notifikacia'>
+        <%= flash[:notice] %>
+      </div>
+  <% end %>
+
   <%= yield %>
 </div>
 

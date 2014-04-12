@@ -1,7 +1,11 @@
+
+
 <div class="formular">
   <%= link_to("<< Spat na zoznam podujati", {:action => 'index'}, :class => 'back-link') %>
 
   <h2 class="stred">Pridanie noveho podujatia</h2>
+
+  <%= error_messages_for(@event) %>
 
   <%= form_for(:event, :url => {:action => 'create'}) do |f| %>
       <div class="form-group">

@@ -1,0 +1,23 @@
+<div class="formular">
+  <%= link_to("<< Spat na zoznam lokalit", {:action => 'index'}, :class => 'back-link') %>
+
+  <h2 class="stred">Pridanie novej loklity</h2>
+
+  <%= error_messages_for(@location) %>
+
+  <%= form_for(:location, :url => {:action => 'create'}) do |f| %>
+      <div class="form-group">
+        <%= f.label 'Mesto' %>
+        <%= f.text_field(:city,class: 'form-control') %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label 'Adresa' %>
+        <%= f.text_field(:address, class: 'form-control') %>
+      </div>
+
+      <div class="stred">
+        <%= f.submit('Vytvor lokalitu', :class => ['btn','btn-lg','btn-success']) %>
+      </div>
+  <% end %>
+</div>

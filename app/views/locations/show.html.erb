@@ -1,0 +1,23 @@
+<%= link_to("<< Spat na zoznam lokalit", {:action => :index}) %>
+
+<div class="table-bordered">
+  <h1><%= @location.city %></h1>
+  <table>
+    <tr>
+      <td>Adresa: </td>
+      <td><%= @location.address %></td>
+    </tr>
+    <tr>
+      <td>Latitude: </td>
+      <td><%= @location.latitude %></td>
+    </tr>
+    <tr>
+      <td>Longitude: </td>
+      <td><%= @location.longitude %></td>
+    </tr>
+  </table>
+
+  <%= image_tag("http://maps.googleapis.com/maps/api/staticmap?size=400x300&maptype=roadmap&sensor=false&zoom=15&markers=#{
+  @location.latitude},#{@location.longitude}") %>
+
+</div>

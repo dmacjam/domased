@@ -46,3 +46,6 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+#Geocoder na location.
+gem "geocoder"

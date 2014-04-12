@@ -1,0 +1,10 @@
+<% if object && object.errors.size > 0 %>
+    <div id="errorExplanation">
+      <h2>Upsss vyskytli sa taketo chyby:</h2>
+      <ul>
+        <% object.errors.each do |attr, msg| %>
+            <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>
