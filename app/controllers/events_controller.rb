@@ -2,12 +2,14 @@ class EventsController < ApplicationController
   #layout false
 
   def index
-    @events=Event.all
+    #@events=Event.all
+    @events=Event.sorted
   end
 
   def search
     if params[:search_city].present?
       @events=Event.near(params[:search_city],20)
+      @events=@events.is_type(params[:id_type]) if params[:id_type].present?
     else
       @events=Event.all
     end

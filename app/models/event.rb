@@ -24,6 +24,8 @@ class Event < ActiveRecord::Base
 
   after_validation :geocode
 
+  scope :sorted, lambda{order("events.date ASC")}
+  scope :is_type, lambda{ |typ| where(:type_id => typ)}
 
 =begin
   def self.vyhladaj(city)

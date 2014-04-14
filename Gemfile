@@ -49,3 +49,6 @@ end
 
 #Geocoder na location.
 gem "geocoder"
+
+#Koala gem pre facebook connectivitu.
+gem "koala", "~> 1.8.0rc1"
