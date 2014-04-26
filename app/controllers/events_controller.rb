@@ -2,16 +2,16 @@ class EventsController < ApplicationController
   #layout false
 
   def index
-    #@events=Event.all
-    @events=Event.sorted
+    @events=Event.paginate(:page => params[:page]).sorted
   end
 
   def search
     if params[:search_city].present?
       @events=Event.near(params[:search_city],20)
       @events=@events.is_type(params[:id_type]) if params[:id_type].present?
+      #@events=@events.paginate(:page =>params[:page])
     else
-      @events=Event.all
+      @events=Event.limit(6).paginate(:page => params[:page],:per_page => 6, :total_entries => 6)
     end
   end
 

@@ -86,6 +86,7 @@
     <orderEntry type="library" scope="PROVIDED" name="turbolinks (v2.2.2, RVM: ruby-2.1.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="tzinfo (v0.3.39, RVM: ruby-2.1.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="uglifier (v2.5.0, RVM: ruby-2.1.0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="will_paginate (v3.0.5, RVM: ruby-2.1.0) [gem]" level="application" />
   </component>
   <component name="RModuleSettingsStorage">
     <LOAD_PATH number="0" />
