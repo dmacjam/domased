@@ -1,0 +1,12 @@
+<div class="center">
+  <%#= will_paginate @events, previous_label: h("<"), next_label: h(">")  %>
+  <% if object.previous_page %>
+      <%= link_to "< Späť", params.merge(:page => @events.previous_page) %>
+  <% end %>
+
+  Stránka <%= object.current_page %> z <%= @events.total_pages %>
+
+  <% if object.next_page %>
+      <%= link_to "Ďalej >", params.merge(:page => @events.next_page) %>
+  <% end %>
+</div>
