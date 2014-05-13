@@ -1,3 +1,6 @@
+<!--Vynutenie javascript file events-->
+<%= javascript_include_tag "events" %>
+
 <% @page_title='Podujatia podla mesta' %>
 <div class="events index">
   <h2>Events</h2>
@@ -7,12 +10,14 @@
 
   <div class="formular">
     <%= form_tag('/events/search', :method => 'get', :class => 'form-search') do %>
-                <%= text_field_tag(:search_city, params[:search_city]) %>
+                <%= text_field_tag(:search_city) %>
+                <%= hidden_field_tag(:lat, params[:lat]) %>
+                <%= hidden_field_tag(:lng, params[:lng]) %>
                 <%= select_tag(:id_type, options_from_collection_for_select(Type.all, :id, :name) ) %>
                 <%= submit_tag('Hladaj', :name => nil)%>
      <% end %>
   </div>
-  </div>
+</div>
 
 <table class="table" summary="Subject list">
     <tr class="header">

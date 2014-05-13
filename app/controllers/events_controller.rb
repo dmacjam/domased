@@ -6,8 +6,8 @@ class EventsController < ApplicationController
   end
 
   def search
-    if params[:search_city].present?
-      @events=Event.near(params[:search_city],20)
+    if params[:lat].present? && params[:lng].present?
+      @events=Event.near([params[:lat],params[:lng]],20)
       @events=@events.is_type(params[:id_type]) if params[:id_type].present?
       @events=@events.page(params[:page])
     else
