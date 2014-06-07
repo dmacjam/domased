@@ -47,7 +47,7 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-#Geocoder na location.
+#Geocoder for location geocoding.
 gem "geocoder"
 
 #Koala gem pre facebook connectivitu.
@@ -55,3 +55,13 @@ gem "koala", "~> 1.8.0rc1"
 
 #Will-paginate gem na listovanie v strankach.
 gem 'will_paginate', '~> 3.0'
+
+#Hirb interactive irb
+gem 'hirb', group: :development
+
+#Testing - RSpec - UNIT testing, Capybara - acceptance testing
+group :development, :test do
+	gem 'rspec-rails'	
+	gem 'capybara'
+end
+
