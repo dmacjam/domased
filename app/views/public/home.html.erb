@@ -3,7 +3,7 @@
 <div class="center uvod">
 <h1><strong>domased.sk</strong><br>
 <small>Najväčší vyhľadávač podujatí v tvojom okolí.</small></h1>
-  <%= link_to('Pridaj nové podujatie', {:controller => 'events', :action => 'new'}, :class => ['btn-warning','btn']) %>
+  <%= link_to('Pridaj nové podujatie', new_event_path, :class => ['btn-warning','btn']) %>
   <%= link_to('Vyhľadaj podujatie', {:controller => 'events', :action => 'search'}, :class => ['btn-success','btn']) %>
 <!--</div>-->
 </div>

@@ -29,18 +29,8 @@ class Event < ActiveRecord::Base
 
   reverse_geocoded_by :latitude, :longitude
 
-  scope :sorted, lambda{order("events.date ASC")}
+  scope :sorted, lambda{ order("events.date ASC") }
   scope :is_type, lambda{ |typ| where(:type_id => typ)}
-
-=begin
-  def self.vyhladaj(city)
-    if city
-      find(1)
-    else
-      find(:all)
-    end
-  end
-=end
 
   def has_coordinates
     latitude.present? && longitude.present?

@@ -33,27 +33,32 @@
 
 <body>
 
-
+<!--Header -->
 <%= render 'layouts/header' %>
 
 <div class="jumbotron">
 <div class="container">
 
-  <% flash.each do |key,value| %>
-      <div class='alert alert-<%= key %>'>
-        <%= value %>
-      </div>
-  <% end %>
+	<!--Flash message -->
+	<% flash.each do |key,value| %>
+      	<div class='alert alert-<%= key %>'>
+        	<%= value %>
+      	</div>
+  	<% end %>
+	
 
-  <%= yield %>
+	<!-- Main body  -->
+	<%= yield %>
 </div>
 </div>
 
 
 
+<!--Footer -->
 <%= render 'layouts/footer' %>
-<%= debug(params) if Rails.env.development? %>
 
+<!-- Debug  -->
+<%= debug(params) if Rails.env.development? %>
 
 
 <!-- Bootstrap core JavaScript

@@ -7,11 +7,19 @@ Domased::Application.routes.draw do
   # root 'welcome#home'
 
   root 'public#home'
+  
+  resources :events do
+  	collection do
+		get 'search'
+	end
+  end
+  
+  get '/about' => 'public#about'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
-  match ':controller(/:action(/:id))', :via => [:get, :post]
+  #match ':controller(/:action(/:id))', :via => [:get, :post]
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

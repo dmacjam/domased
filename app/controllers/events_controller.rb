@@ -1,8 +1,7 @@
 class EventsController < ApplicationController
-  #layout false
 
   def index
-    @events=Event.sorted.page(params[:page])
+    @events=Event.sorted.includes(:type).page(params[:page])
   end
 
   def search
@@ -11,7 +10,6 @@ class EventsController < ApplicationController
       @events=@events.is_type(params[:id_type]) if params[:id_type].present?
       @events=@events.page(params[:page])
     else
-      #@events=Event.limit(6).paginate(:page => params[:page],:per_page => 6, :total_entries => 6)
       @events=Event.sorted.page(params[:page])
     end
   end
@@ -22,7 +20,6 @@ class EventsController < ApplicationController
 
   def new
     @event=Event.new({:description => 'Opis podujatia'})
-
   end
 
   def create
@@ -49,10 +46,6 @@ class EventsController < ApplicationController
     end
   end
 
-  def delete
-    @event=Event.find(params[:id])
-  end
-
   def destroy
     @event=Event.find(params[:id]).destroy
     flash[:notice]="Podujatie #{@event.name} bolo uspesne zmazane."
@@ -61,7 +54,6 @@ class EventsController < ApplicationController
 
 
   private
-
     def event_params
       params.require(:event).permit(:name,:description,:type_id,:date, :address)
     end

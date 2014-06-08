@@ -1,6 +1,6 @@
 module ApplicationHelper
 
-  # Vrati cely nazov stranky pre kazdu podstranku
+  # Vrati cely nazov stranky pre kazdu podstranku.
   def full_title(page_title)
     base_title='Domased'
     if page_title.nil?
@@ -10,7 +10,7 @@ module ApplicationHelper
     end
   end
 
-
+  #Render error massages partial.
   def error_messages_for(object)
     render(:partial => 'application/error_messages',
            :locals => {:object => object})

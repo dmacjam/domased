@@ -57,11 +57,10 @@ gem "koala", "~> 1.8.0rc1"
 gem 'will_paginate', '~> 3.0'
 
 #Hirb interactive irb
-gem 'hirb', group: :development
+#gem 'hirb', group: :development
 
-#Testing - RSpec - UNIT testing, Capybara - acceptance testing
+#Testing - RSpec - UNIT and integration(request specs) testing, Capybara - acceptance testing
 group :development, :test do
 	gem 'rspec-rails'	
 	gem 'capybara'
 end
-

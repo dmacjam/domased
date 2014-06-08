@@ -5,7 +5,7 @@
 <div class="events index">
   <h2>Events</h2>
 
-  <%= link_to("Pridaj nove podujatie", {:action => :new }, :class => 'action new') %>
+  <%= link_to("Pridaj nove podujatie", new_event_path, :class => 'action new') %>
 
 
   <div class="formular">
@@ -27,21 +27,8 @@
       <th>Popis</th>
       <th>Mesto</th>
       <th>Akcie</th>
-    </tr>
-    <% @events.each do |event| %>
-        <tr>
-          <td><%= event.name %></td>
-          <td><%= event.date %></td>
-          <td><%= event.type.name if event.type.name  %></td>
-          <td><%= truncate(event.description, length: 20) %></td>
-          <td><%= event.address %></td>
-          <td class="actions">
-            <%= link_to("Show", {:action => 'show', :id => event.id}, :class => 'action show') %>
-            <%= link_to("Edit", {:action => 'edit', :id => event.id}, :class => 'action edit') %>
-            <%= link_to("Delete", {:action => 'delete', :id => event.id}, :class => 'action delete') %>
-          </td>
-        </tr>
-    <% end %>
+  </tr>
+  <%= render @events %>
   </table>
 
 <%= render partial: "application/paginate", locals: { object: @events }  %>
