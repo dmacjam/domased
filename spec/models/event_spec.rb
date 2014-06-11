@@ -1,11 +1,14 @@
 require 'spec_helper'
 
 describe Event do
-	before { @event=Event.new(name: "Summer party", date: Time.now) }
+	#before { @event=Event.create(name: "Summer party", date: Time.now) }
+	before { @event=FactoryGirl.create(:event) }
 	subject { @event }
 
 	it { should respond_to(:name) }
 	it { should respond_to(:date) }
+	its(:latitude) { should_not be_blank }
+	its(:longitude) { should_not be_blank }
 
 	describe 'when name is not present' do
 		before { @event.name="" }
@@ -24,9 +27,10 @@ describe Event do
 
 	describe 'when it is a duplicate' do
 		before do
-		  event_duplicate = @event.dup
-		  event_duplicate.save
+		  @event_duplicate = @event.dup
+		  @event_duplicate.save
 		end
+		subject { @event_duplicate }
 		it { should_not be_valid }
 	end
 end

@@ -4,9 +4,9 @@ class Event < ActiveRecord::Base
   validates :name, presence:  { :message => 'Nezadal si nazov podujatia' },
                     length: {:within => 4..30, :message => 'Nazov podujatia musi byt v rozadhu 4-30 znakov'},
                     uniqueness: true
-  validates :date, presence: true
-
-  #validates :address, :presence => { :message => 'Musis zadat mesto'}
+  #validates :date, presence: true
+  validates :type_id, presence: true
+  validates :address, :presence => { :message => 'Musis zadat mesto'}
 
   after_validation :reverse_geocode, :if => :has_coordinates
   after_validation :geocode, :if => :has_address, :unless => :has_coordinates
@@ -17,6 +17,12 @@ class Event < ActiveRecord::Base
   has_many :comments                                                      #zobrazi rich join table komentare
   has_many :user_comments, :through => :comments, :source => :user
                                                                 #event.user_comments zobrazi vsetky commenty k eventu
+  attr_writer :form_date,:form_time
+  
+  before_save :save_date
+  validate :check_date_time
+  validates_format_of :form_time, with: /\A\d{1,2}:\d{2}\b/, message: "Nespravny format casu"
+  validates_format_of :form_date, with: /\A\d{2}-\d{2}-\d{4}\b/, message: "Nespravny format datumu."
 
   #Vstup od pouzivatela mi rozhodi do stlpcov v DB.
   geocoded_by :address do |obj,results|
@@ -39,5 +45,33 @@ class Event < ActiveRecord::Base
   def has_address
     address.present?
   end
+  
+  def form_date
+	@form_date || date.try(:strftime,"%m %d %Y")
+  end
 
+  def form_time
+	@form_time || date.try(:strftime, "%H:%M")
+  end
+
+  def parse_form_datetime
+	Time.zone.parse("#{@form_date} #{@form_time}")
+  end
+  
+  def save_date
+	self.date = parse_form_datetime 
+  end
+
+  def check_date_time
+    if !@form_date.present? || !@form_time.present?
+		errors.add :date, "Zadaj datum a cas"
+	end
+
+    if parse_form_datetime.nil?
+    	errors.add :date, "Chybny datum"
+	end
+  rescue ArgumentError
+  	  errors.add :date, "Mimo rozsahu"
+  end
+  
 end

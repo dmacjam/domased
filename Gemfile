@@ -24,6 +24,9 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
+# jQuery UI
+gem 'jquery-ui-rails'
+
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
@@ -61,6 +64,8 @@ gem 'will_paginate', '~> 3.0'
 
 #Testing - RSpec - UNIT and integration(request specs) testing, Capybara - acceptance testing
 group :development, :test do
-	gem 'rspec-rails'	
-	gem 'capybara'
+	gem 'rspec-rails', '2.13.1' 	
+	gem 'capybara', '2.1.0'
+	gem 'factory_girl_rails', '4.2.1'
+	gem 'selenium-webdriver', '2.35.1'	
 end

@@ -1,10 +1,6 @@
-  <!--Vynutenie javascript file events-->
-  <%= javascript_include_tag "events" %>
+<%= link_to("<< Spat na zoznam podujati", events_path, :class => 'back-link') %>
+<h2 class="center">Pridanie noveho podujatia</h2>
 
-  <%= link_to("<< Spat na zoznam podujati", events_path, :class => 'back-link') %>
+<%= error_messages_for(@event) %>
 
-  <h2 class="center">Pridanie noveho podujatia</h2>
-
-  <%= error_messages_for(@event) %>
-
-  <%= render 'form' %>
+<%= render 'form' %>

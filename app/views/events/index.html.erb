@@ -16,6 +16,5 @@
  <%= render @events %>
 </table>
 
- <%= render partial: "application/paginate", locals: { object: @events }  %>
-
+<%= render 'application/paginate', object: @events  %>
 </div>

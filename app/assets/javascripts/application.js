@@ -12,6 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.datepicker
+//= require jquery.timepicker
 //= require turbolinks
+//= require bootstrap
 //= require jquery.geocomplete.min
 //= require_tree .

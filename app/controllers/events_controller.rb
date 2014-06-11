@@ -26,7 +26,7 @@ class EventsController < ApplicationController
     @event=Event.new(event_params)
     if @event.save
       flash[:success]="Podujatie bolo uspesne vytvorene."
-      redirect_to(:action => 'index')
+      redirect_to @event
     else
       render('new')
     end
@@ -40,7 +40,7 @@ class EventsController < ApplicationController
     @event=Event.find(params[:id])
     if @event.update_attributes(event_params)
       flash[:notice]="Podujatie bolo uspesne upravene."
-      redirect_to(:action => 'show', :id => @event.id)
+      redirect_to @event
     else
       render('edit')
     end
@@ -55,6 +55,6 @@ class EventsController < ApplicationController
 
   private
     def event_params
-      params.require(:event).permit(:name,:description,:type_id,:date, :address)
+      params.require(:event).permit(:name,:description,:type_id,:form_date,:form_time, :address)
     end
 end
