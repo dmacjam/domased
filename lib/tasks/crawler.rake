@@ -1,5 +1,5 @@
-desc "Stiahne data z facebook API"
-  task :fb_crawl => :environment do
+desc "Download Facebook events"
+  task :fb => :environment do
     require 'koala'
     token="CAACEdEose0cBAJPNdbK6zV1pTwOuvtdvre8sLOgl4RBiSDxrdeHSbhGwYJzYjinsdj2qC2ZAZBgvuh2SwLQGiYocezo7aUFlRphhsSSXNPnb3jUnnd6aAgnCaY5IoceIbPSb2TWg3VWS3lchRbToOl1W7Llv3CwaeMWm5APBu0jFZAmw7NIMQfGBjlP5tYZD"
     @graph = Koala::Facebook::API.new(token)
@@ -48,5 +48,23 @@ desc "Stiahne data z facebook API"
 
 
     puts "Pridanych #{pocet} podujati"
+ end
 
+desc "Download Ticketportal.sk events" 
+  task :ticketportal_crawl => :environment do
+  	require 'nokogiri'
+  	require 'open-uri'
+
+	(1..40_000).each do |id|
+	  url = "http://www.ticketportal.sk/event.aspx?id=#{id}"
+	  resp = Net::HTTP.get_response(URI.parse(url))
+ 	  if resp.code.match('200') 
+        html = open(url)
+        doc = Nokogiri::HTML(html)
+        
+        doc.search("div .podujatie_popis_r")
+        puts "#{id} - #{doc.title.split("|")[0].strip}"
+	  end
+	end
   end
+

@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Domased::Application.routes.draw do
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -15,6 +17,8 @@ Domased::Application.routes.draw do
   end
   
   get '/about' => 'public#about'
+  
+  mount Sidekiq::Web, at: '/sidekiq'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

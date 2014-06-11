@@ -14,3 +14,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore ENV variables a secret token.
+/config/application.yml
+/config/initializers/secret_token.rb

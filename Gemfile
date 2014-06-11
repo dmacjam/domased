@@ -59,6 +59,11 @@ gem "koala", "~> 1.8.0rc1"
 #Will-paginate gem na listovanie v strankach.
 gem 'will_paginate', '~> 3.0'
 
+#Sidekiq - background processing
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'slim'
+
 #Hirb interactive irb
 #gem 'hirb', group: :development
 
