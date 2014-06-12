@@ -4,13 +4,12 @@ class Event < ActiveRecord::Base
   validates :name, presence:  { :message => 'Nezadal si nazov podujatia' },
                     length: {:within => 4..30, :message => 'Nazov podujatia musi byt v rozadhu 4-30 znakov'},
                     uniqueness: true
-  validates :date, presence: true
   validates :type_id, presence: true
   validates :address, :presence => { :message => 'Musis zadat mesto'}, unless: :has_coordinates?
 
-  after_validation :reverse_geocode, if: :has_coordinates?, unless: :has_address?
-  after_validation :geocode, if: :has_address?, unless: :has_coordinates?
-
+  #after_validation :reverse_geocode, if: :has_coordinates?
+  after_validation :geocode, if: :do_geocode?
+  
   belongs_to :type
   belongs_to :creator, :class_name => "User", :foreign_key => "user_id"
                                                                       #event.creator zobrazi usera, kt. vytvoril event
@@ -18,10 +17,15 @@ class Event < ActiveRecord::Base
   has_many :user_comments, :through => :comments, :source => :user
                                                                 #event.user_comments zobrazi vsetky commenty k eventu
   attr_writer :form_date,:form_time
-  before_save :save_date, unless: "date.present?"
-  validate :check_date_time, unless:  "date.present?" 
-  validates_format_of :form_time, with: /\A\d{1,2}:\d{2}\b/, message: "Nespravny format casu", unless: "date.present?"
-  validates_format_of :form_date, with: /\A\d{2}-\d{2}-\d{4}\b/, message: "Nespravny format datumu.", unless: "date.present?"
+  #attr_accessor :lat,:lng
+  before_save :save_date, unless: :date_present
+  validate :check_date_time, unless:  :date_present 
+  validates_format_of :form_time, with: /\A\d{1,2}:\d{2}\b/, message: "Nespravny format casu", unless: :date_present
+  validates_format_of :form_date, with: /\A\d{2}-\d{2}-\d{4}\b/, message: "Nespravny format datumu.", unless: :date_present
+ 
+  def date_present
+	date.present?
+  end
 
   #Vstup od pouzivatela mi rozhodi do stlpcov v DB.
   geocoded_by :address do |obj,results|
@@ -33,16 +37,23 @@ class Event < ActiveRecord::Base
   end
 
   reverse_geocoded_by :latitude, :longitude
-
+  
   scope :sorted, lambda{ order("events.date ASC") }
   scope :is_type, lambda{ |typ| where(:type_id => typ)}
 
+  
+  
+  
   def has_coordinates?
     latitude.present? && longitude.present?
   end
 
   def has_address?
     address.present?
+  end
+
+  def do_geocode?
+	has_address? && !has_coordinates?
   end
 
   def form_date
@@ -72,5 +83,17 @@ class Event < ActiveRecord::Base
   rescue ArgumentError
   	  errors.add :date, "Mimo rozsahu"
   end
-  
+
+  #def check
+  #	Rails.logger.info("Som TU")
+  #	result = Geocoder.search(address)
+  #	if result
+  #		update_attribute(:latitude,result[0].coordinates[0])
+  #		update_attribute(:longitude,result[0].coordinates[1])
+  #		update_attribute(:address,result[0].address)
+  #		Rails.logger.info("Spracovavam #{result[0].address}")
+  #	end
+  #	self.save
+  # end
+
 end

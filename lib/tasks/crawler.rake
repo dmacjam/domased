@@ -1,3 +1,4 @@
+namespace :crawl do
 desc "Download Facebook events"
   task :fb => :environment do
     require 'koala'
@@ -51,31 +52,23 @@ desc "Download Facebook events"
  end
 
 desc "Download Ticketportal.sk events" 
-  task :ticketportal_crawl => :environment do
-  	require 'nokogiri'
-  	require 'open-uri'
+  task :ticketportal => :environment do
 
-	(1..40_000).each do |id|
-	  url = "http://www.ticketportal.sk/event.aspx?id=#{id}"
-	  resp = Net::HTTP.get_response(URI.parse(url))
- 	  if resp.code.match('200') 
-        html = open(url)
-        doc = Nokogiri::HTML(html)
-        image = doc.search("#ctl00_ContentPlaceHolder1_iNahlad")
-        puts "http://www.ticketportal.sk/#{image[0]["src"]}"
-        element = doc.search("div .podujatie_popis_r p")		#[1]
-        #date = element.search("strong")[0].text #datum
-        #city = element.search("strong")[1].text #lokalita
-        
-        
-        #description = "#{element[3].text} #{element[4].text} #{element[5].text }"
-        puts "#{id} - #{doc.title.split("|")[0].strip}"
-        #puts "#{date}"
-        #puts "#{city}"
-        #puts "#{description}"
-        puts element.text 
-        puts "-------------------------------"
-	  end
+	(18_000..21_000).each do |id|
+		TicketportalWorker.perform_async(id)	
 	end
   end
+
+end
+
+desc "Check all event geocoding record"
+  task :check_events => :environment do
+	Event.all.each do |event|
+		SavingWorker.perform_async(event.id)
+		sleep 1
+	end
+
+  end
+
+
 

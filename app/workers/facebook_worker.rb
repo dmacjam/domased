@@ -2,6 +2,7 @@ require 'koala'
 
 class FacebookWorker
   include Sidekiq::Worker
+  sidekiq_options :retry => 2, :queue => :myqueue, :backtrace => true
   
   def init
   	@oauth ||= Koala::Facebook::OAuth.new(CONFIG[:app_id], CONFIG[:app_secret])

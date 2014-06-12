@@ -6,7 +6,11 @@ var ready = function() {
 	});
 
     
-    $("#event_address").geocomplete();
+    $("#event_address").geocomplete({
+		details: ".details",
+        detailsAttribute: "data-geo"
+	});
+
     
     
     $('#event_form_date').datepicker({ dateFormat: "dd-mm-yy", minDate: 0, firstDay: 1 ,
