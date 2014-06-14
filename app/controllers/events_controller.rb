@@ -24,8 +24,9 @@ class EventsController < ApplicationController
 
   def create
     @event=Event.new(event_params)
+    @event.geocode
     if @event.save
-      flash[:success]="Podujatie bolo uspesne vytvorene."
+      flash[:success]="Podujatie bolo úspešne vytvorené."
       redirect_to @event
     else
       render('new')
@@ -39,7 +40,8 @@ class EventsController < ApplicationController
   def update
     @event=Event.find(params[:id])
     if @event.update_attributes(event_params)
-      flash[:notice]="Podujatie bolo uspesne upravene."
+      @event.geocode
+      flash[:notice]="Podujatie bolo úspešne upravené."
       redirect_to @event
     else
       render('edit')

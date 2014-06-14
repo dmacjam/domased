@@ -1,10 +1,13 @@
 class SavingWorker
   include Sidekiq::Worker
   sidekiq_options :retry => 2, :backtrace => true
-  
+   
+  sidekiq_retries_exhausted do |msg|
+      Sidekiq.logger.warn "Failed #{msg['class']} with #{msg['args']}: #{msg['error_message']}"
+  end
+
   def perform(id)
   	event = Event.find(id)
-  	#event.check
   	result = Geocoder.search(event.address)
   	if result
 		event.update_attribute(:latitude,result[0].coordinates[0])

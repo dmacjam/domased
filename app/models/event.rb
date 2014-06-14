@@ -8,14 +8,12 @@ class Event < ActiveRecord::Base
   validates :address, :presence => { :message => 'Musis zadat mesto'}, unless: :has_coordinates?
 
   #after_validation :reverse_geocode, if: :has_coordinates?
-  after_validation :geocode, if: :do_geocode?
+  #after_validation :geocode, if: :do_geocode?
   
   belongs_to :type
   belongs_to :creator, :class_name => "User", :foreign_key => "user_id"
                                                                       #event.creator zobrazi usera, kt. vytvoril event
-  has_many :comments                                                      #zobrazi rich join table komentare
-  has_many :user_comments, :through => :comments, :source => :user
-                                                                #event.user_comments zobrazi vsetky commenty k eventu
+  
   attr_writer :form_date,:form_time
   #attr_accessor :lat,:lng
   before_save :save_date, unless: :date_present
@@ -30,9 +28,15 @@ class Event < ActiveRecord::Base
   #Vstup od pouzivatela mi rozhodi do stlpcov v DB.
   geocoded_by :address do |obj,results|
     if geo = results.first
-      obj.address = [geo.city,geo.address].compact.join(',')
-      obj.latitude = geo.latitude
-      obj.longitude = geo.longitude
+      if obj.new_record?
+      	obj.address = [geo.city,geo.address].compact.join(',')
+      	obj.latitude = geo.latitude
+      	obj.longitude = geo.longitude
+	  else
+	  	obj.update_attribute(:address, [geo.city,geo.address].compact.join(',') )
+	  	obj.update_attribute(:latitude,geo.latitude)
+        obj.update_attribute(:longitude,geo.longitude)
+      end
     end
   end
 

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Place:</strong>
+  <%= @facebook_place.place_id %>
+</p>
+
+<p>
+  <strong>Checked:</strong>
+  <%= @facebook_place.checked %>
+</p>
+
+<%= link_to 'Edit', edit_facebook_place_path(@facebook_place) %> |
+<%= link_to 'Back', facebook_places_path %>

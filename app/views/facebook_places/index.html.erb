@@ -1,0 +1,31 @@
+<h1>Listing facebook_places</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Place</th>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @facebook_places.each do |facebook_place| %>
+      <tr>
+        <td><%= facebook_place.place_id %></td>
+        <td><%= facebook_place.name %></td>
+		<td><%= link_to 'Facebook', "https://www.facebook.com/#{facebook_place.place_id}"  %></td>
+		<td><%= link_to 'Show', facebook_place %></td>
+        <td><%= link_to 'Edit', edit_facebook_place_path(facebook_place) %></td>
+        <td><%= link_to 'Destroy', facebook_place, method: :delete %></td>
+      </tr>
+    <% end %>
+	</tbody>
+	<%#= will_paginate @facebook_places %>
+</table>
+
+<br>
+
+<%= link_to 'New Facebook place', new_facebook_place_path %>

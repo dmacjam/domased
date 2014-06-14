@@ -1,63 +1,90 @@
 namespace :crawl do
-desc "Download Facebook events"
-  task :fb => :environment do
+desc "Save Facebook places into redis"
+  task :fb_places => :environment do
     require 'koala'
-    token="CAACEdEose0cBAJPNdbK6zV1pTwOuvtdvre8sLOgl4RBiSDxrdeHSbhGwYJzYjinsdj2qC2ZAZBgvuh2SwLQGiYocezo7aUFlRphhsSSXNPnb3jUnnd6aAgnCaY5IoceIbPSb2TWg3VWS3lchRbToOl1W7Llv3CwaeMWm5APBu0jFZAmw7NIMQfGBjlP5tYZD"
-    @graph = Koala::Facebook::API.new(token)
+	@oauth = Koala::Facebook::OAuth.new(CONFIG[:app_id], CONFIG[:app_secret])
+	@token = @oauth.get_app_access_token
+	@graph = Koala::Facebook::API.new(@token)
+    
+    redis = Redis.new(:host => 'localhost', :port => 6379)
 
-    tn_start_long=17.95
-    #tn_start_lat=48.8
+	#diff 0.003
+	#BA-lat-48.14 ..  48.18
+	#  -lng- 17.05 .. 17.16 
+	#ZA 49.19..49.26
+	# =>18.64..18.80
+	# ZAPAD	48.20 .. 48.74
+	# =>17.56..	19.32
+	# STRED+VYCHOD 48.72..49.15
+	# 			   18.88..22.0
 
-
-    end_lat=49.15
-    end_long=18.45
-
-    pocet=0
-
-    puts "Starting crawler"
-
-    for i in (48.14..48.18).step(0.003) do
-      for j in (17.05..17.16).step(0.003) do
-        dopyt="SELECT eid  FROM event_member WHERE uid IN (SELECT page_id FROM place WHERE distance(latitude, longitude, \"#{i}\", \"#{j}\") < 50000)"
-        pole=@graph.fql_query(dopyt)
-        if pole.any?
-          pole.length.times do |cislo|
-            event=@graph.get_object(pole[cislo]["eid"])
-
-            if event["start_time"] > Time.now
-
-            dbEvent = Event.new(:name => event["name"],:date => event["start_time"],
-                                   :latitude => event["venue"]["latitude"], :longitude => event["venue"]["longitude"],
-                                   :description => event["description"], :fb_id_number => event["id"], :type_id => 6,
-                                   :created_at => Time.now, :updated_at => Time.now)
-
-
-            if dbEvent.save
-              puts "#{dbEvent.name} saved"
-              pocet=pocet+1
-            #else
-              #puts "#{dbEvent.name} exist"
-            end
-
-            end
-          end
+    for i in (48.72..49.15).step(0.03) do
+      for j in (18.88..22.0).step(0.003) do
+        dopyt="SELECT page_id FROM place WHERE distance(latitude, longitude, \"#{i}\", \"#{j}\") < 50000"
+        page_array=@graph.fql_query(dopyt)
+        if page_array.any?
+          page_array.length.times do |id|
+          	#place = FacebookPlace.new(place_id: "#{page_array[id]["page_id"]}")	  
+          	#place.save
+          	redis.sadd("places","#{page_array[id]["page_id"]}")
+          end  
         end
-        #puts "Longitude: #{j}"
+        #sleep 0.5 
       end
-      puts "Latitude: #{i}"
     end
-
-
-    puts "Pridanych #{pocet} podujati"
  end
 
-desc "Download Ticketportal.sk events" 
+desc "Save only places with likes upon boundary"
+  task :places_save => :environment do
+	require 'koala'
+	LIKES_BOUNDARY = 2000
+	@oauth = Koala::Facebook::OAuth.new(CONFIG[:app_id], CONFIG[:app_secret])
+	@token = @oauth.get_app_access_token
+	@graph = Koala::Facebook::API.new(@token)
+	redis = Redis.new(:host => 'localhost', :port => 6379)
+	
+	#FacebookPlace.where(:checked => false).each do |db_place|
+	  #place = @graph.get_object(db_place.place_id)
+	  #if place["likes"] < LIKES_BOUNDARY	
+		#db_place.destroy
+	  #else
+	  	#db_place.update_attribute(:checked, true)
+	  #end
+	 #sleep 0.5
+	#end
+  
+    while redis.scard("places") > 0
+      id = redis.spop("places")	
+	  place = @graph.get_object(id)
+	  if place["likes"] > LIKES_BOUNDARY
+		FacebookPlace.create(place_id: id, name: place["name"])
+	  end
+	end 
+  end
+
+
+ desc "Push Ticketportal.sk events into sidekiq" 
   task :ticketportal => :environment do
 
-	(18_000..21_000).each do |id|
+	(1..50_000).each do |id|
 		TicketportalWorker.perform_async(id)	
 	end
   end
+
+ desc "Download Bratislava events from Eventbride"
+   task :eventbride => :environment do
+	require 'open-uri'
+	
+	url = "https://www.eventbriteapi.com/v3/events/search/?token=HDWIUUQ5MCJJWHZD3TOQ&venue.city=Bratislava"
+	result = JSON.parse(open(url).read)
+	result["events"].each do |event|
+	  event["name"]["text"]  
+	end
+
+   end
+
+
+
 
 end
 
@@ -67,8 +94,7 @@ desc "Check all event geocoding record"
 		SavingWorker.perform_async(event.id)
 		sleep 1
 	end
-
-  end
+end
 
 
 

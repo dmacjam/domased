@@ -16,7 +16,6 @@ class TicketportalWorker
         #puts "http://www.ticketportal.sk/#{image[0]["src"]}"
         image = image[0]["src"]
         element = doc.search("div .podujatie_popis_r p")		#[1]
-        
         regexp = /e\:\s?(\d{2}\.\d{1,2}\.\d{4})\so.?\s(\d{1,2}\:\d{2})/.match("#{element.text}")
         return if regexp.nil?
         date = "#{regexp[1]} #{regexp[2]}"
@@ -30,7 +29,8 @@ class TicketportalWorker
         #puts "#{city}"
         #puts "#{description}"
         description = element.text	
-		Event.create(name: title,description: description,date: date,address: city,url_link: url,image: image, type_id: 7)
+		event = Event.create(name: title,description: description,date: date,address: city,url_link: url,image: image, type_id: 7)
+    	SavingWorker.perform_async(event.id)
     end
   end
 end

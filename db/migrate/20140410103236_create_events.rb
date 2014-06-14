@@ -3,7 +3,7 @@ class CreateEvents < ActiveRecord::Migration
     create_table :events do |t|
       t.integer "type_id", :default => 0
       t.integer "user_id"
-      t.string "name", :null => false
+      t.string "name", null: false, unique: true
       t.datetime "date"
       t.string "city"
       t.string "address"
