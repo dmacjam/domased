@@ -2,10 +2,11 @@ class Event < ActiveRecord::Base
   self.per_page = 12
 
   validates :name, presence:  { :message => 'Nezadal si nazov podujatia' },
-                    length: {:within => 4..80, :message => 'Nazov podujatia musi byt v rozadhu 4-30 znakov'},
-                    uniqueness: true
+                    length: {:within => 4..80, :message => 'Nazov podujatia musi byt v rozadhu 4-30 znakov'}
   validates :type_id, presence: true
   validates :address, :presence => { :message => 'Musis zadat mesto'}, unless: :has_coordinates?
+  
+  validates_uniqueness_of :name, scope: :date
 
   #after_validation :reverse_geocode, if: :has_coordinates?
   #after_validation :geocode, if: :do_geocode?

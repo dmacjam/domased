@@ -63,8 +63,8 @@ desc "Save only places with likes upon boundary"
   end
 
 
- desc "Push Ticketportal.sk events into sidekiq" 
-  task :ticketportal => :environment do
+ desc "Push Ticketportal.sk events into TicketportalWorker" 
+  task :ticketportal_push => :environment do
 
 	(1..50_000).each do |id|
 		TicketportalWorker.perform_async(id)	
@@ -103,8 +103,6 @@ desc "Save only places with likes upon boundary"
 	  end
    end
   end
-
-
 
 
 end

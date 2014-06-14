@@ -1,6 +1,6 @@
 namespace :fb do
   desc "Push Facebook events into redis"
-	task :push_events => :environment do
+	task :push => :environment do
 		require 'koala'
 			@oauth = Koala::Facebook::OAuth.new(CONFIG[:app_id], CONFIG[:app_secret])
 			@token = @oauth.get_app_access_token
@@ -21,7 +21,7 @@ namespace :fb do
   end
 
   desc "Save Facebook event from redis"
-    task :save_events => :environment do
+    task :save => :environment do
       @oauth = Koala::Facebook::OAuth.new(CONFIG[:app_id], CONFIG[:app_secret])
 	  @token = @oauth.get_app_access_token
 	  @graph = Koala::Facebook::API.new(@token)
