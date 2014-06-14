@@ -71,17 +71,38 @@ desc "Save only places with likes upon boundary"
 	end
   end
 
- desc "Download Bratislava events from Eventbride"
+ desc "Download Slovakia events from Eventbride"
    task :eventbride => :environment do
 	require 'open-uri'
 	
-	url = "https://www.eventbriteapi.com/v3/events/search/?token=HDWIUUQ5MCJJWHZD3TOQ&venue.city=Bratislava"
+	url = "https://www.eventbriteapi.com/v3/events/search/?token=HDWIUUQ5MCJJWHZD3TOQ&venue.country=SK&start_date.range_start=#{Time.now.utc.iso8601}"
 	result = JSON.parse(open(url).read)
-	result["events"].each do |event|
-	  event["name"]["text"]  
-	end
+	pages = result["pagination"]["page_count"]
+	pocet = 1
 
+	while pocet <= pages
+	 url = "https://www.eventbriteapi.com/v3/events/search/?token=HDWIUUQ5MCJJWHZD3TOQ&venue.country=SK&start_date.range_start=#{Time.now.utc.iso8601}&page=#{pocet}"
+	 result = JSON.parse(open(url).read)
+	  
+	  result["events"].each do |event|
+	    dbEvent = Event.new
+	    dbEvent.name = event["name"]["text"]  
+	    dbEvent.description = event["description"]["text"]
+	    dbEvent.url_link = event["url"]
+	    dbEvent.image = event["logo_url"]
+	    dbEvent.date = event["start"]["local"]
+	    dbEvent.latitude = event["venue"]["latitude"]
+	    dbEvent.longitude = event["venue"]["longitude"]
+	    dbEvent.type_id = 0
+	    if dbEvent.save
+	  	  ReverseGeocodingWorker.perform_async(dbEvent.id)
+	    else
+	     # LOG puts dbEvent.errors.inspect
+	    end
+	    pocet = pocet +1
+	  end
    end
+  end
 
 
 
