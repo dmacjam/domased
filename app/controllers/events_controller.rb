@@ -1,13 +1,32 @@
 class EventsController < ApplicationController
 
   def index
-    @events=Event.sorted.includes(:type).page(params[:page])
+  	if params[:lat].present?
+  		@events = Event.near([params[:lat],params[:lng]],25).sorted
+    	#@types = @events.select('type_id','count(*)').group(:type_id)
+    	#types = Event.joins(:type).select("types.id,count(*)").group("types.id").order("types.id")
+    	#@types = @events.joins("RIGHT JOIN types ON types.id=events.type_id").select("types.id AS typ_id,count(*)").group("types.id,events.id").order("types.id")
+    	#@events=Event.sorted.includes(:type).page(params[:page])
+    else
+		@events = Event.all
+  	end
+
+	if params[:typ].present?
+		@types = Type.where("id=?",params[:typ])
+		@events = @events.includes(:type).where("type_id=?",params[:typ]).page(params[:page])
+	else
+		@types = Type.select("types.id,types.name,count(*)").from(@events).
+    		     joins("JOIN types ON types.id=subquery.type_id").group("types.name,types.id")
+    			 .order("types.name ASC")
+    	@events = @events.includes(:type).page(params[:page])	
+	end
+
   end
 
   def search
     if params[:lat].present? && params[:lng].present?
-      @events=Event.near([params[:lat],params[:lng]],20)
-      @events=@events.is_type(params[:id_type]) if params[:id_type].present?
+      @events=Event.near([params[:lat],params[:lng]],30)
+      #@events=@events.is_type(params[:id_type]) if params[:id_type].present?
       @events=@events.page(params[:page])
     else
       @events=Event.sorted.page(params[:page])

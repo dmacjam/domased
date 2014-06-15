@@ -4,6 +4,31 @@
 
   <%= link_to("Pridaj nove podujatie", new_event_path ) %>
 
+  <div class="formular">
+    <%= form_tag(events_path, :method => 'get', :class => 'form-search') do %>
+                <%= text_field_tag(:city, params[:city] ,size: 40) %>
+                <%= hidden_field_tag(:lat, params[:lat]) %>
+                <%= hidden_field_tag(:lng, params[:lng]) %>
+                <%= submit_tag('Hladaj', :name => nil)%>
+     <% end %>
+  </div>
+  
+  <div class="facet">
+	<h3>Typ podujatia</h3>
+	<ul>
+		<% @types.each do |type| %>
+			<li>
+			<% if params[:typ].blank? %>
+				<%= link_to type.name, params.merge(:typ => type.id,page: 1) %> (<%= type.count %>)
+			<% else %>
+				<strong><%= type.name %></strong>(<%= link_to "remove", params.merge(typ: nil,page: 1) %>)
+			</li>
+			<% end%>
+		<% end %>
+	</ul>
+  </div>
+
+  POCET <%= @events.count %>
   <table class="table" summary="Subject list">
     <tr class="header">
       <th>Nazov</th>

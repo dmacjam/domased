@@ -1,6 +1,6 @@
 var ready = function() {
 
-    $("#search_city").geocomplete({
+    $("#city").geocomplete({
         types: ['(cities)'],
         details: "form"
 	});
