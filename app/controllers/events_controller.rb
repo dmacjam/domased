@@ -21,11 +21,17 @@ class EventsController < ApplicationController
     			 .order("types.name ASC")
     	@events = @events.includes(:type).page(params[:page])	
 	end
-
   end
 
   def calendar
-  
+ 	@events_by_date = Event.all.group_by{ |i| i.date.to_date }
+  	@date = params[:date] ? Date.parse(params[:date]) : Date.today
+  end
+
+  def search
+	if params[:date].present?
+		@events = Event.where("date>=? AND date<=?",params[:date].to_time.beginning_of_day,params[:date].to_time.end_of_day)
+	end
   end
 
   def show

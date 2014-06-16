@@ -29,8 +29,8 @@
         <%= f.label 'Mesto' %>
         <%= f.text_field(:address, :size=> 30 ,class: 'form-control') %>
 		<div class="details">
-		<%= f.text_field :latitude, :"data-geo" => "lat" %>
-		<%= f.text_field :longitude, :"data-geo" => "lng"  %></div>
+		<%= f.hidden_field :latitude, :"data-geo" => "lat" %>
+		<%= f.hidden_field :longitude, :"data-geo" => "lng"  %></div>
 	</div>
 
       <div class="stred">

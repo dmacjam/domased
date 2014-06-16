@@ -15,6 +15,7 @@ Domased::Application.routes.draw do
   resources :events do
   	collection do
 		get 'calendar'
+		get 'search'
 	end
   end
   

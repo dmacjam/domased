@@ -1,34 +1,19 @@
-<% @page_title='Podujatia podla mesta' %>
+<% @page_title='Podujatia' %>
 <div class="events index">
-  <h2>Events</h2>
+	<h2>Podujatia <%= Date.parse(params[:date]).strftime("%d.%m.%Y") %></h2>
 
-  <%= link_to("Pridaj nove podujatie", new_event_path, :class => 'action new') %>
+	<%= link_to("Pridaj nove podujatie", new_event_path ) %>
 
-
-  <div class="formular">
-    <%= form_tag('/events/search', :method => 'get', :class => 'form-search') do %>
-                <%= text_field_tag(:search_city) %>
-                <%= hidden_field_tag(:lat, params[:lat]) %>
-                <%= hidden_field_tag(:lng, params[:lng]) %>
-                <%#= select_tag(:id_type, options_from_collection_for_select(Type.all, :id, :name) ) %>
-                <%= submit_tag('Hladaj', :name => nil)%>
-     <% end %>
-  </div>
-</div>
-
-<table class="table" summary="Subject list">
-    <tr class="header">
-      <th>Nazov</th>
-      <th>Datum</th>
-      <th>Typ</th>
-      <th>Popis</th>
-      <th>Mesto</th>
-      <th>Akcie</th>
-  </tr>
-  <%= render @events %>
-  </table>
-
-
-<%= render 'application/paginate', object: @events  %>
-
+	
+	<table class="table" summary="Subject list">
+		<tr class="header">
+			<th>Nazov</th>
+			<th>Datum</th>
+			<th>Typ</th>
+			<th>Popis</th>
+			<th>Adresa</th>
+			<th>Akcie</th>
+		</tr>
+		<%= render @events %>
+	</table>
 </div>

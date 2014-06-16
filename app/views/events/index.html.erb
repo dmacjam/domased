@@ -28,18 +28,18 @@
 	</ul>
   </div>
 
-  POCET <%= @events.count %>
-  <table class="table" summary="Subject list">
-    <tr class="header">
-      <th>Nazov</th>
-      <th>Datum</th>
-      <th>Typ</th>
-      <th>Popis</th>
-      <th>Adresa</th>
-      <th>Akcie</th>
-    </tr>
- <%= render @events %>
-</table>
+ POCET <%= @events.count %>
+   <table class="table" summary="Subject list">
+     <tr class="header">
+       <th>Nazov</th>
+       <th>Datum</th>
+       <th>Typ</th>
+       <th>Popis</th>
+       <th>Adresa</th>
+       <th>Akcie</th>
+     </tr>
+  <%= render @events %>
+ </table>
 
-<%= render 'application/paginate', object: @events  %>
-</div>
+ <%= render 'application/paginate', object: @events  %>
+ </div>
