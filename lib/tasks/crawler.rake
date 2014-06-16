@@ -18,7 +18,7 @@ desc "Save Facebook places into redis"
 	# STRED+VYCHOD 48.72..49.15
 	# 			   18.88..22.0
 
-    for i in (48.40..48.84).step(0.03) do
+    for i in (49.30..49.52).step(0.03) do
       for j in (16.80..22.17).step(0.003) do
         dopyt="SELECT page_id FROM place WHERE distance(latitude, longitude, \"#{i}\", \"#{j}\") < 50000"
         page_array=@graph.fql_query(dopyt)

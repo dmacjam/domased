@@ -11,10 +11,13 @@
     <br><br>  <%= link_to "Facebook event", "http://www.facebook.com/#{@event.fb_id_number}", :target => '_blank' %>
 
   </div>
-  <div class="col-md-6">
-    <%= image_tag("http://maps.googleapis.com/maps/api/staticmap?size=400x300&maptype=roadmap&sensor=false&zoom=15&markers=#{
-    @event.latitude},#{@event.longitude}") %>
-  </div>
+  <!-- Google Maps Embed API -->
+  <iframe
+  	    width="650"
+  	    height="500"
+  	    frameborder="0" style="border:0"
+		src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCnImQ5YILD6D-howUWSAdXkCTvzODJmAo&q=<%= @event.address %>">
+  </iframe>
 
 </div>
 
