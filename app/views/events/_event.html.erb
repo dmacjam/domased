@@ -6,7 +6,11 @@
   <td><%= event.address %></td>
   <td class="actions">
     <%= link_to("Show", event ) %>
-    <%= link_to("Edit", edit_event_path(event) )  %>
-    <%= link_to("Delete", event, method: :delete ) %>
+	<% if can? :update, event %>
+	<%= link_to("Edit", edit_event_path(event) )  %>
+	<% end %>
+	<% if can? :destroy, event %>
+	<%= link_to("Delete", event, method: :delete ) %>
+	<% end %>	
   </td>
 </tr>

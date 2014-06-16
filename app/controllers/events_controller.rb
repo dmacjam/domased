@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   before_filter :authenticate, only: :new
-  
+  load_and_authorize_resource
+
   def index
   	if params[:lat].present?
   		@events = Event.near([params[:lat],params[:lng]],25).sorted
@@ -35,7 +36,6 @@ class EventsController < ApplicationController
   end
 
   def show
-    @event=Event.find(params[:id])
   end
 
   def new
@@ -54,11 +54,9 @@ class EventsController < ApplicationController
   end
 
   def edit
-    @event=Event.find(params[:id])
   end
 
   def update
-    @event=Event.find(params[:id])
     if @event.update_attributes(event_params)
       @event.geocode
       flash[:notice]="Podujatie bolo úspešne upravené."

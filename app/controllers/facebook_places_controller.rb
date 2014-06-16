@@ -1,8 +1,6 @@
 class FacebookPlacesController < ApplicationController
-  before_action :set_facebook_place, only: [:show, :edit, :update, :destroy]
-
-  # GET /facebook_places
-  # GET /facebook_places.json
+  load_and_authorize_resource
+  
   def index
     @facebook_places = FacebookPlace.order("created_at ASC")	#.paginate(page: params[:page])
   end
@@ -14,7 +12,6 @@ class FacebookPlacesController < ApplicationController
 
   # GET /facebook_places/new
   def new
-    @facebook_place = FacebookPlace.new
   end
 
   # GET /facebook_places/1/edit
@@ -24,8 +21,6 @@ class FacebookPlacesController < ApplicationController
   # POST /facebook_places
   # POST /facebook_places.json
   def create
-    @facebook_place = FacebookPlace.new(facebook_place_params)
-
     respond_to do |format|
       if @facebook_place.save
         format.html { redirect_to @facebook_place, notice: 'Facebook place was successfully created.' }
@@ -62,12 +57,7 @@ class FacebookPlacesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_facebook_place
-      @facebook_place = FacebookPlace.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
+        # Never trust parameters from the scary internet, only allow the white list through.
     def facebook_place_params
       params.require(:facebook_place).permit(:place_id, :checked)
     end
