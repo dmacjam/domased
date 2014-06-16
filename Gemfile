@@ -56,6 +56,9 @@ gem "geocoder"
 #Koala gem pre facebook connectivitu.
 gem "koala", "~> 1.8.0rc1"
 
+#Login with facebook.
+gem 'omniauth-facebook'
+
 #Will-paginate gem na listovanie v strankach.
 gem 'will_paginate', '~> 3.0'
 

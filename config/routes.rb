@@ -14,13 +14,17 @@ Domased::Application.routes.draw do
   
   resources :events do
   	collection do
-		get 'search'
+		get 'calendar'
 	end
   end
   
   get '/about' => 'public#about'
   
   mount Sidekiq::Web, at: '/sidekiq'
+
+  get 'auth/:provider/callback', to: 'sessions#create'
+  get 'auth/failure', to: redirect('/')
+  get 'signout', to: 'sessions#destroy', as: 'signout'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

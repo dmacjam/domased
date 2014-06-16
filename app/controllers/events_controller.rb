@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
-
+  before_filter :authenticate, only: :new
+  
   def index
   	if params[:lat].present?
   		@events = Event.near([params[:lat],params[:lng]],25).sorted
@@ -23,14 +24,8 @@ class EventsController < ApplicationController
 
   end
 
-  def search
-    if params[:lat].present? && params[:lng].present?
-      @events=Event.near([params[:lat],params[:lng]],30)
-      #@events=@events.is_type(params[:id_type]) if params[:id_type].present?
-      @events=@events.page(params[:page])
-    else
-      @events=Event.sorted.page(params[:page])
-    end
+  def calendar
+  
   end
 
   def show
