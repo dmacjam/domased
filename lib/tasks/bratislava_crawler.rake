@@ -5,13 +5,13 @@ namespace :fb do
 			@oauth = Koala::Facebook::OAuth.new(ENV['APP_ID'], ENV['APP_SECRET'])
 			@token = @oauth.get_app_access_token
 			@graph = Koala::Facebook::API.new(@token)
-		    redis = Redis.new(:host => 'localhost', :port => 6379)
+		    #redis = Redis.new(:host => 'localhost', :port => 6379)
 
 			FacebookPlace.all.each do |place|
 			  result = @graph.get_connections(place.place_id,"events")
 			  result.each do |event|
 		       #FacebookWorker.perform_async(event["eid"])
-		       redis.rpush("events", event["id"])
+		       REDIS.rpush("events", event["id"])
 		 	  end
 			end
 			
@@ -25,9 +25,8 @@ namespace :fb do
       @oauth = Koala::Facebook::OAuth.new(CENV['APP_ID'], ENV['APP_SECRET'])
 	  @token = @oauth.get_app_access_token
 	  @graph = Koala::Facebook::API.new(@token)
-	  redis = Redis.new(:host => 'localhost', :port => 6379)
 	
-	  while redis.llen("events") > 0
+	  while REDIS.llen("events") > 0
   	  	event= @graph.get_object(redis.lpop("events"))
 	  	dbEvent = Event.new(name: event["name"],date: event["start_time"],
                         description: event["description"], fb_id_number: event["id"], type_id: 6,

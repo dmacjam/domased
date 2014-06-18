@@ -2,7 +2,6 @@ namespace :kam_do_mesta do
   desc "Push events from categories into redis"
   task :push => :environment do
 	require 'open-uri'
-	redis = Redis.new(:host => 'localhost', :port => 6379)
 	site = "http://www.kamdomesta.sk/" 
 	urls = ["koncerty","festivaly","party2","predstavenia","vystavy","hudba-a-tanec","prednasky","workshopy","kurzy","deti-a-mladez",
 			"sport","ine"]
@@ -13,7 +12,7 @@ namespace :kam_do_mesta do
 	
 	  index_doc.search('.event-short-title').each do |title|
 	    link = title.search('a').first["href"]
-	    redis.rpush("kam_do_mesta",link)
+	    REDIS.rpush("kam_do_mesta",link)
 	  end
     end
 
@@ -21,11 +20,10 @@ namespace :kam_do_mesta do
   
   desc "Save events from redis"
   task :save => :environment do
-	redis = Redis.new(:host => 'localhost', :port => 6379)
 	require 'open-uri'
 
-	while redis.llen("kam_do_mesta") > 0
-		link= redis.lpop("kam_do_mesta")
+	while REDIS.llen("kam_do_mesta") > 0
+		link= REDIS.lpop("kam_do_mesta")
 		event = Event.new
     	event.url_link = "http://www.kamdomesta.sk#{link}"
     	html = open(event.url_link)
