@@ -129,9 +129,9 @@ desc "Save only places with likes upon boundary"
 	    dbEvent.type_id = 0
 	    dbEvent.save
 	    if dbEvent.errors.any?
-	      puts "[EB]NOT saved #{dbEvent.errors.inspect}"
+	      logger.info "[EB]NOT saved #{dbEvent.errors.inspect}"
 		else
-		  puts "[EB]Saved #{dbEvent.name}"
+		  logger.info "[EB]Saved #{dbEvent.name}"
 	    end
 	    pocet= pocet +1 
 	  end
