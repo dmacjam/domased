@@ -48,6 +48,11 @@ namespace :fb do
 	    end
     
         dbEvent.save
+        if dbEvent.new_record?
+		  puts "[FB]NOT saved #{dbEvent.errors.inspect}"
+		else
+          puts "[FB] saved #{dbEvent.name}"
+		end
       end
 	end
 end

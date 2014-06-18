@@ -92,6 +92,11 @@ desc "Save only places with likes upon boundary"
 			  #puts "#{description}"
 			  description = element.text	
 			  event = Event.create(name: title,description: description,date: date,address: city,url_link: url,image: image, type_id: 7)
+		  	  if event.new_record?
+				puts "[TP]NOT saved #{event.errors.inspect}"
+			  else
+			  	puts "[TP]saved #{event.name}"  
+			  end
 		  end
     end
   end
@@ -124,7 +129,9 @@ desc "Save only places with likes upon boundary"
 	    dbEvent.type_id = 0
 	    dbEvent.save
 	    if dbEvent.errors.any?
-	     # LOG puts dbEvent.errors.inspect
+	      puts "[EB]NOT saved #{dbEvent.errors.inspect}"
+		else
+		  puts "[EB]Saved #{dbEvent.name}"
 	    end
 	    pocet= pocet +1 
 	  end

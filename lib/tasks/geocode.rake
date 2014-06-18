@@ -7,7 +7,7 @@ namespace :geo do
   	    event.geocode
   	    event.save
   	    event.destroy unless event.geocoded?
-  	    #Rails.logger.info("Spracovavam #{result[0].address}")
+  	    puts "[GEO] Spracovavam #{event.name} => #{result[0].address}"
 	  	sleep 1
 	end
   
