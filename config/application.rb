@@ -6,9 +6,10 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
-CONFIG = YAML.load(File.read(File.expand_path('../application.yml', __FILE__)))
-CONFIG.merge! CONFIG.fetch(Rails.env, {})
-CONFIG.symbolize_keys!
+#Environmental variables with CONFIG
+#CONFIG = YAML.load(File.read(File.expand_path('../application.yml', __FILE__)))
+#CONFIG.merge! CONFIG.fetch(Rails.env, {})
+#CONFIG.symbolize_keys!
 
 module Domased
   class Application < Rails::Application
