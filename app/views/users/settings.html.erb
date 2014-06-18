@@ -1,3 +1,4 @@
+<div class="container">
 <h3>Profil</h3>
 <%= form_for(@user) do |f| %>
 		<div class="form-group">
@@ -6,7 +7,8 @@
 		</div>
 		<div class="form-group">
 			<%= f.label "Oblubene typy podujati:" %><br>
-		  <%= f.collection_check_boxes :type_ids, Type.all, :id, :name %>
+			<%= f.collection_check_boxes :type_ids, Type.all, :id, :name, :item_wrapper_class => 'inline' %>
 	    </div>
 	    <%= f.submit %>
-  <% end %>
+	<% end %>
+</div

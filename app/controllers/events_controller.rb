@@ -10,11 +10,7 @@ class EventsController < ApplicationController
     	#@types = @events.joins("RIGHT JOIN types ON types.id=events.type_id").select("types.id AS typ_id,count(*)").group("types.id,events.id").order("types.id")
     	#@events=Event.sorted.includes(:type).page(params[:page])
     else
-		if current_user
-		  @events = Event.all.where("type_id IN (?)",current_user.type_ids)
-		else
-		  @events = Event.all.sorted
-  		end
+		@events = Event.all.sorted
 	end
 
 	if params[:typ].present?
@@ -44,7 +40,7 @@ class EventsController < ApplicationController
 
   def create
     @event=Event.new(event_params)
-    @event.user_id = current_user.uid
+    @event.user_id = current_user.id
     @event.geocode
     if @event.save
       flash[:success]="Podujatie bolo úspešne vytvorené."

@@ -1,6 +1,9 @@
 class PublicController < ApplicationController
 
   def home
+ 	if current_user
+	 	@events = Event.all.where("type_id IN (?)",current_user.type_ids).limit(6)
+  	end 
   end
 
   def about
