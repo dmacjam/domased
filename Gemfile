@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.1.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.3'
@@ -82,5 +83,11 @@ group :development, :test do
 	gem 'selenium-webdriver', '2.35.1'	
 end
 
+#Cron jobs
 gem 'whenever', :require => false
+
+#Heroku setup
+group :production do
+  gem 'rails_12factor'
+end
 
