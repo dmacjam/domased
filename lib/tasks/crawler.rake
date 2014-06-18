@@ -2,7 +2,7 @@ namespace :crawl do
 desc "Save Facebook places into redis"
   task :fb_places => :environment do
     require 'koala'
-	@oauth = Koala::Facebook::OAuth.new(CONFIG[:app_id], CONFIG[:app_secret])
+	@oauth = Koala::Facebook::OAuth.new(ENV['APP_ID'], ENV['APP_SECRET'])
 	@token = @oauth.get_app_access_token
 	@graph = Koala::Facebook::API.new(@token)
     

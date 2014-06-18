@@ -2,7 +2,7 @@ namespace :fb do
   desc "Push Facebook events into redis"
 	task :push => :environment do
 		require 'koala'
-			@oauth = Koala::Facebook::OAuth.new(CONFIG[:app_id], CONFIG[:app_secret])
+			@oauth = Koala::Facebook::OAuth.new(ENV['APP_ID'], ENV['APP_SECRET'])
 			@token = @oauth.get_app_access_token
 			@graph = Koala::Facebook::API.new(@token)
 		    redis = Redis.new(:host => 'localhost', :port => 6379)
@@ -22,7 +22,7 @@ namespace :fb do
 
   desc "Save Facebook event from redis"
     task :save => :environment do
-      @oauth = Koala::Facebook::OAuth.new(CONFIG[:app_id], CONFIG[:app_secret])
+      @oauth = Koala::Facebook::OAuth.new(ENV['APP_ID'], ENV['APP_SECRET'])
 	  @token = @oauth.get_app_access_token
 	  @graph = Koala::Facebook::API.new(@token)
 	  redis = Redis.new(:host => 'localhost', :port => 6379)
