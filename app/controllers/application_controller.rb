@@ -4,13 +4,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   
   rescue_from CanCan::AccessDenied do |exception|
-  	flash[:error] = "Prístup zamietnutý. To radšej nechci vidieť..."
+  	flash[:warning] = "Prístup zamietnutý. To radšej nechci vidieť..."
 	redirect_to root_path
   end
 
   def authenticate
     unless current_user
-    	flash[:notice]="Musis sa prihlasit"
+    	flash[:info]="Musis sa prihlasit"
   		redirect_to root_path
   	end
   end

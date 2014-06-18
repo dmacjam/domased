@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+<%= @user.name %>
+<br><%= @user.profile_text %>
+
+<br>Likes:
+
+<ul>
+<% @user.types.each do |like| %>
+		<li><%= like.name %>
+<% end %>
+</ul>
+
+<%= link_to 'Nastavenia', settings_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

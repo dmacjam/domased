@@ -21,7 +21,7 @@ var ready = function() {
 
     $('#event_form_time').timepicker({ 'timeFormat': 'H:i', 'scrollDefaultTime': '16:00' });	
 
-	$("#datepicker").datepicker({
+	var cal =$("#datepicker").datepicker({
 			closeText: 'Zavrieť',
 			prevText: '&#x3c;Predchádzajúci',
 			nextText: 'Nasledujúci&#x3e;',
@@ -41,6 +41,10 @@ var ready = function() {
 				window.location.href = 'events/search?date='+dateText;
 			}
 });
+
+	
+
+
 
 }
 

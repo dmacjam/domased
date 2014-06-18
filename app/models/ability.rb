@@ -7,10 +7,10 @@ class Ability
     if user.admin?
    	  can :manage, :all
 	else
-      can [:read,:search], Event
-	  can :update, Event do |event|
-		event.try(:user) == user
-	  end
+      can [:read,:search], Event 
+	  can :create, Event unless user.new_record?
+	  can :update, Event, :user_id => user.id
+	  can [:read,:settings,:update], User, :uid => user.uid
 	end
     # Define abilities for the passed in user here. For example:
     #

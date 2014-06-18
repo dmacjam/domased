@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
   #validates_presence_of :username
   has_many :created_events, :class_name => "Event"  #user.created_events - zobrazi vsetky vytvorene eventy userom
-
+  has_and_belongs_to_many :types
+  
   def self.from_omniauth(auth)
 	  where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
 		  user.provider = auth.provider

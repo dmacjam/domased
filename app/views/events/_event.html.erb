@@ -1,16 +1,38 @@
-<tr>
-  <td><%= event.name %></td>
-  <td><%= event.date %></td>
-  <td><%= event.type.name  %></td>
-  <td><%= truncate(event.description, length: 20) %></td>
-  <td><%= event.address %></td>
-  <td class="actions">
-    <%= link_to("Show", event ) %>
-	<% if can? :update, event %>
-	<%= link_to("Edit", edit_event_path(event) )  %>
-	<% end %>
-	<% if can? :destroy, event %>
-	<%= link_to("Delete", event, method: :delete ) %>
-	<% end %>	
-  </td>
-</tr>
+<% events.in_groups_of(3,false).each do |group| %>
+	  <div class="row">
+	    <% group.each do |event| %>
+  		
+
+		<div class="col-md-4">
+		<div class="center"><%= link_to event.name, event %><br> <span class="label label-info">
+			
+		<% case event.type.id %>
+		<% when 1 %>
+			<span class="glyphicon glyphicon-glass"></span>
+		<% when 2 %>
+			<span class="glyphicon glyphicon-music"></span>
+		<% when 4 %>
+			<span class="glyphicon glyphicon-film"></span>
+		<% else %>	
+				<%= event.type.name %>
+		<% end %>
+		</span></div>
+	
+	
+	
+		<br><%= event.date %>
+		<br><%= truncate(event.description, length: 20) %>
+		<br><%= event.address %>	
+		<% if can? :update, event %>
+			<br><%= link_to("Edit", edit_event_path(event) )  %>
+		<% end %>
+	
+		<% if can? :destroy, event %>
+			<br><%= link_to("Delete", event, method: :delete ) %>
+		<% end %>	
+		</div>
+
+<% end %>
+</div>
+<% end%>
+

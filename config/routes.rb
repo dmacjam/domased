@@ -3,7 +3,11 @@ require 'sidekiq/web'
 Domased::Application.routes.draw do
 
   resources :facebook_places
-
+  resources :users do
+	member do
+	  get 'settings'
+	end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -20,7 +24,8 @@ Domased::Application.routes.draw do
   end
   
   get '/about' => 'public#about'
-  
+  get '/login' => 'public#login'
+
   mount Sidekiq::Web, at: '/sidekiq'
 
   get 'auth/:provider/callback', to: 'sessions#create'

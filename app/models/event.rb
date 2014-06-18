@@ -1,10 +1,10 @@
 class Event < ActiveRecord::Base
   self.per_page = 12
 
-  validates :name, presence:  { :message => 'Nezadal si nazov podujatia' },
-                    length: {:within => 4..80, :message => 'Nazov podujatia musi byt v rozadhu 4-30 znakov'}
+  validates :name, presence:  { :message => 'Nezadal si názov podujatia' },
+                    length: {:within => 4..80, :message => 'Názov podujatia musi byt v rozsahu 4-80 znakov'}
   validates :type_id, presence: true
-  validates :address, :presence => { :message => 'Musis zadat mesto'}, unless: :has_coordinates?
+  validates :address, :presence => { :message => 'Zadaj adresu podujatia'}, unless: :has_coordinates?
   
   validates_uniqueness_of :name, scope: :date
 
@@ -19,8 +19,8 @@ class Event < ActiveRecord::Base
   #attr_accessor :lat,:lng
   before_save :save_date, unless: :date_present
   validate :check_date_time, unless:  :date_present 
-  validates_format_of :form_time, with: /\A\d{1,2}:\d{2}\b/, message: "Nespravny format casu", unless: :date_present
-  validates_format_of :form_date, with: /\A\d{2}-\d{2}-\d{4}\b/, message: "Nespravny format datumu.", unless: :date_present
+  validates_format_of :form_time, with: /\A\d{1,2}:\d{2}\b/, message: "Nesprávny formát času", unless: :date_present
+  validates_format_of :form_date, with: /\A\d{2}-\d{2}-\d{4}\b/, message: "Nesprávny formát dátumu.", unless: :date_present
  
   def date_present
 	date.present?

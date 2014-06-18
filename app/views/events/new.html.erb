@@ -1,6 +1,15 @@
-<%= link_to("<< Spat na zoznam podujati", events_path, :class => 'back-link') %>
-<h2 class="center">Pridanie noveho podujatia</h2>
+<div class="container">
+	<ol class="breadcrumb">
+		<li><%= link_to "Hlavná stránka", root_path %></li> 
+		<li class="active">Nové podujatie</li>
+  </ol>
 
-<%= error_messages_for(@event) %>
 
-<%= render 'form' %>
+<div class="container">
+  <%= link_to("<< Spat na zoznam podujati", events_path, :class => 'back-link') %>
+  <h2 class="center">Pridanie noveho podujatia</h2>
+
+  <%= error_messages_for(@event) %>
+
+  <%= render 'form' %>
+</div>

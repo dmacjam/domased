@@ -1,11 +1,30 @@
-<% @page_title = 'Home' %>
-<!--<div class="jumbotron">-->
-<div class="center uvod">
-<h1><strong>domased.sk</strong><br>
-<small>Najväčší vyhľadávač podujatí v tvojom okolí.</small></h1>
-  <%= link_to('Pridaj nové podujatie', new_event_path, :class => ['btn-warning','btn']) %>
-  <%= link_to('Vyhľadaj podujatie', events_path , :class => ['btn-success','btn']) %>
-  <div id="datepicker"></div>
+<% @page_title = 'Hlavná stránka' %>
+
+<div class="container">
+	<ol class="breadcrumb">
+	  <li class="active">Hlavná stránka</li>
+  </ol>
   
-  <!--</div>-->
+<div class="jumbotron">
+  <div class="row text-center">
+  <h1><strong>domased.sk</strong><br>
+	  <small><em>Najväčší vyhľadávač podujatí v tvojom okolí.</em></small></h1>
+  <%= link_to('Pridaj nové podujatie', new_event_path, :class => ['btn','btn-warning','btn-lg']) %>
+  <%= link_to('Vyhľadaj podujatie', events_path , :class => ['btn','btn-success','btn-lg']) %>
+  </div> 
 </div>
+
+<div class="row">
+	<div class="col-md-4" id="datepicker"></div>
+	<div class="col-md-4 text-center"><blockquote><strong>Nájdeš tu viac ako <%= Event.all.count %> podujatí!</strong></blockquote></div>
+	<div class="col-md-4 text-center">
+		<% if current_user %>
+			<%= link_to "Profil", user_path(current_user) %>
+		<% else %>
+		<strong>Nehraj formu, prihlás sa a využívaj možnosti stránky naplno!</strong>
+		<% end %>
+	
+	
+	</div>
+</div>
+

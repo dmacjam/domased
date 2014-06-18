@@ -1,5 +1,5 @@
 <!-- Form partial -->
-<%= form_for(@event) do |f| %>
+<%= form_for(@event, html: {class: "form-horizontal"}) do |f| %>
       <div class="form-group">
         <%= f.label 'Názov' %>
         <%= f.text_field(:name, :size => 30, :maxlenght => 30 ,class: 'form-control') %>
@@ -11,19 +11,19 @@
       </div>
 
       <div class="form-group">
-        <%= f.label 'Typ podujatia: ' %><br>
+        <%= f.label 'Typ podujatia: ' %> &nbsp;
         <%= f.collection_select :type_id, Type.order(:name), :id, :name %>
       </div>
 
       <div class="form-group">
-        <%= f.label 'Dátum: ' %>
+		<%= f.label 'Dátum: ' %>&nbsp;
         <%#= f.datetime_select(:date, :order => [:day, :month, :year, :hour, :minute],
                               start_year: Time.now.year, :minute_step => 15 ) %>
 
-		<%= f.text_field :form_date, size: 10 %>
-		<%= f.label "Čas: "%>
-		<%= f.text_field :form_time, size: 3 %>
-		</div>
+	   <%= f.text_field :form_date, size: 10 %>
+   	   <%= f.label "Čas: " %>&nbsp;
+	   <%= f.text_field :form_time, size: 3 %>
+   	  </div>
 
       <div class="form-group">
         <%= f.label 'Mesto' %>
@@ -33,7 +33,7 @@
 		<%= f.hidden_field :longitude, :"data-geo" => "lng"  %></div>
 	</div>
 
-      <div class="stred">
+      <div class="text-center">
         <%= f.submit('Publish!', :class => ['btn','btn-lg','btn-success']) %>
       </div>
   <% end %>

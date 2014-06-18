@@ -1,0 +1,12 @@
+<h3>Profil</h3>
+<%= form_for(@user) do |f| %>
+		<div class="form-group">
+          <%= f.label 'Profil' %>
+          <%= f.text_area(:profile_text, :size => "3x3" ,class: 'form-control') %>
+		</div>
+		<div class="form-group">
+			<%= f.label "Oblubene typy podujati:" %><br>
+		  <%= f.collection_check_boxes :type_ids, Type.all, :id, :name %>
+	    </div>
+	    <%= f.submit %>
+  <% end %>

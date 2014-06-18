@@ -1,19 +1,15 @@
 <% @page_title='Podujatia' %>
-<div class="events index">
+
+<div class="container">
+  <ol class="breadcrumb">
+	  <li><%= link_to "Hlavná stránka", root_path %></li> 
+	  <li class="active">Vyhľadávanie podujatí</li>
+  </ol>
+
+
 	<h2>Podujatia <%= Date.parse(params[:date]).strftime("%d.%m.%Y") %></h2>
 
 	<%= link_to("Pridaj nove podujatie", new_event_path ) %>
-
 	
-	<table class="table" summary="Subject list">
-		<tr class="header">
-			<th>Nazov</th>
-			<th>Datum</th>
-			<th>Typ</th>
-			<th>Popis</th>
-			<th>Adresa</th>
-			<th>Akcie</th>
-		</tr>
-		<%= render @events %>
-	</table>
+	<%= render 'event', events: @events %>
 </div>

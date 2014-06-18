@@ -59,7 +59,7 @@ class EventsController < ApplicationController
   def update
     if @event.update_attributes(event_params)
       @event.geocode
-      flash[:notice]="Podujatie bolo úspešne upravené."
+      flash[:info]="Podujatie bolo úspešne upravené."
       redirect_to @event
     else
       render('edit')
@@ -68,7 +68,7 @@ class EventsController < ApplicationController
 
   def destroy
     @event=Event.find(params[:id]).destroy
-    flash[:notice]="Podujatie #{@event.name} bolo uspesne zmazane."
+    flash[:success]="Podujatie #{@event.name} bolo uspesne zmazane."
     redirect_to(:action => 'index')
   end
 

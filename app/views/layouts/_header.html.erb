@@ -5,12 +5,11 @@
       <li>
         <%= link_to('Home', {:controller => 'public', :action => 'home'}) %></li>
       <li><%= link_to('About', {:controller => 'public', :action => 'about'}) %></li>
-	  <li><a href="#">Contact</a></li>
 	  <li>	<% if current_user %>
 	  			Signed in as <strong><%= current_user.name %></strong>!
-	  			<%= link_to "Sign out", signout_path, id: "sign_out" %>
+	</li><li>	<%= link_to "Odhlásiť sa", signout_path, id: "sign_out" %>
   			<% else %>
-		  		<%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
+		  		<%= link_to "Prihlásenie", login_path %>
   			<% end %>
 		</li>
     </ul>

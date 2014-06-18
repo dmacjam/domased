@@ -1,25 +1,36 @@
 <% @page_title='Podujatia' %>
-<div class="events index">
-  <h2>Events</h2>
 
-  <%= link_to("Pridaj nove podujatie", new_event_path ) %>
+<div class="container">
+	<ol class="breadcrumb">
+	  <li><%= link_to "Hlavná stránka", root_path %></li> 
+	  <li class="active">Vyhľadávanie podujatí</li>
+  </ol>
 
-  <div class="formular">
-    <%= form_tag(events_path, :method => 'get', :class => 'form-search') do %>
-                <%= text_field_tag(:city, params[:city] ,size: 40) %>
-                <%= hidden_field_tag(:lat, params[:lat]) %>
-                <%= hidden_field_tag(:lng, params[:lng]) %>
-                <%= submit_tag('Hladaj', :name => nil)%>
-     <% end %>
-  </div>
+
+<div class="container">
+	<div class="page-header">
+		<h2>Podujatia <small>Vyhľadávanie</small></h2>
+	</div>
   
+  <%= link_to("Pridaj nove podujatie", new_event_path ) %>
+  <div class="formular">
+    <%= form_tag(events_path, :method => 'get', :class => ['form-search','text-center']) do %>
+				<div class="form-group">
+				<%= text_field_tag(:city, params[:city] ,size: 50 ) %>
+			   	<%= hidden_field_tag(:lat, params[:lat]) %>
+				<%= hidden_field_tag(:lng, params[:lng]) %>
+                <%= submit_tag('Hladaj', :name => nil, :class => ['btn','btn-lg','btn-success'])%>
+				</div>		
+	<% end %>
+  </div>
+
   <div class="facet">
 	<h3>Typ podujatia</h3>
 	<ul>
 		<% @types.each do |type| %>
 			<li>
 			<% if params[:typ].blank? %>
-				<%= link_to type.name, params.merge(:typ => type.id,page: 1) %> (<%= type.count %>)
+				<%= link_to type.name, params.merge(:typ => type.id,page: 1) %> <span class="badge"><%= type.count %></span>
 			<% else %>
 				<strong><%= type.name %></strong>(<%= link_to "remove", params.merge(typ: nil,page: 1) %>)
 			</li>
@@ -28,18 +39,7 @@
 	</ul>
   </div>
 
- POCET <%= @events.count %>
-   <table class="table" summary="Subject list">
-     <tr class="header">
-       <th>Nazov</th>
-       <th>Datum</th>
-       <th>Typ</th>
-       <th>Popis</th>
-       <th>Adresa</th>
-       <th>Akcie</th>
-     </tr>
-  <%= render @events %>
- </table>
-
- <%= render 'application/paginate', object: @events  %>
+	<%= render 'event', events: @events %>
+   	<%= render 'application/paginate', object: @events  %>
  </div>
+
