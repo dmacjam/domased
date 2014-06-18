@@ -5,7 +5,7 @@
 
 		<div class="col-md-4">
 		<div class="center"><%= link_to event.name, event %><br> <span class="label label-info">
-			
+
 		<% case event.type.id %>
 		<% when 1 %>
 			<span class="glyphicon glyphicon-glass"></span>
@@ -22,7 +22,7 @@
 	
 		<br><%= event.date %>
 		<br><%= truncate(event.description, length: 20) %>
-		<br><%= event.address %>	
+		<br><%= event.address if event.address %>	
 		<% if can? :update, event %>
 			<br><%= link_to("Edit", edit_event_path(event) )  %>
 		<% end %>

@@ -99,6 +99,7 @@ desc "Save only places with likes upon boundary"
 	    if dbEvent.errors.any?
 	     # LOG puts dbEvent.errors.inspect
 	    end
+	    pocet= pocet +1 
 	  end
    end
   end
