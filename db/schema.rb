@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140617115110) do
+ActiveRecord::Schema.define(version: 20140618080248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,9 @@ ActiveRecord::Schema.define(version: 20140617115110) do
     t.string   "image"
   end
 
+  add_index "events", ["date"], name: "index_events_on_date", using: :btree
+  add_index "events", ["type_id"], name: "index_events_on_type_id", using: :btree
+
   create_table "facebook_places", force: true do |t|
     t.string   "place_id",   null: false
     t.string   "name"
@@ -45,6 +48,9 @@ ActiveRecord::Schema.define(version: 20140617115110) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "types", ["id", "name"], name: "index_types_on_id_and_name", unique: true, using: :btree
+  add_index "types", ["name"], name: "index_types_on_name", using: :btree
 
   create_table "types_users", id: false, force: true do |t|
     t.integer "type_id"
@@ -67,5 +73,8 @@ ActiveRecord::Schema.define(version: 20140617115110) do
     t.datetime "oauth_expires_at"
     t.boolean  "admin",                        default: false
   end
+
+  add_index "users", ["provider"], name: "index_users_on_provider", using: :btree
+  add_index "users", ["uid"], name: "index_users_on_uid", using: :btree
 
 end
