@@ -1,5 +1,3 @@
-require 'sidekiq/web'
-
 Domased::Application.routes.draw do
 
   resources :facebook_places
@@ -26,7 +24,6 @@ Domased::Application.routes.draw do
   get '/about' => 'public#about'
   get '/login' => 'public#login'
 
-  mount Sidekiq::Web, at: '/sidekiq'
 
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')

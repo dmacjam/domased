@@ -68,9 +68,11 @@ gem 'cancancan'
 gem 'will_paginate', '~> 3.0'
 
 #Sidekiq - background processing
-gem 'sidekiq'
-gem 'sinatra', require: false
-gem 'slim'
+#gem 'sidekiq'
+#gem 'sinatra', require: false
+#gem 'slim'
+
+gem 'redis'
 
 #Hirb interactive irb
 #gem 'hirb', group: :development

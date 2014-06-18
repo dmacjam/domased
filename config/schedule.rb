@@ -52,7 +52,3 @@ end
 every :day, :at => '5:00 am' do
   rake "geo:without_coordinates"
 end
-
-every :day, :at => '6:00 am' do
-  rake "geo:without_address"
-end
