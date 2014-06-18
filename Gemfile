@@ -82,5 +82,5 @@ group :development, :test do
 	gem 'selenium-webdriver', '2.35.1'	
 end
 
-
+gem 'whenever', :require => false
 

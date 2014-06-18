@@ -61,7 +61,7 @@ namespace :kam_do_mesta do
   		if event.save
   	  		SavingWorker.perform_async(event.id)
 		else
-	  		event.errors.inspect	
+	  		# daj do LOGu event.errors.inspect	
   		end
 	end
 
