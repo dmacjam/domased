@@ -48,3 +48,11 @@ end
 every :day, :at => '0:50 am' do
   rake "destroy_old_events"
 end
+
+every :day, :at => '5:00 am' do
+  rake "geo:without_coordinates"
+end
+
+every :day, :at => '6:00 am' do
+  rake "geo:without_address"
+end

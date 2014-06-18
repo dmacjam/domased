@@ -94,12 +94,11 @@ desc "Save only places with likes upon boundary"
 	    dbEvent.latitude = event["venue"]["latitude"]
 	    dbEvent.longitude = event["venue"]["longitude"]
 	    dbEvent.type_id = 0
-	    if dbEvent.save
-	  	  ReverseGeocodingWorker.perform_async(dbEvent.id)
-	    else
+	    dbEvent.save
+	    
+	    if dbEvent.errors.any?
 	     # LOG puts dbEvent.errors.inspect
 	    end
-	    pocet = pocet +1
 	  end
    end
   end
@@ -107,13 +106,13 @@ desc "Save only places with likes upon boundary"
 
 end
 
-desc "Check all event geocoding record"
-  task :check_events => :environment do
-	Event.all.each do |event|
-		SavingWorker.perform_async(event.id)
-		sleep 1
-	end
-end
+#desc "Check all event geocoding record"
+#  task :check_events => :environment do
+#	Event.all.each do |event|
+#		SavingWorker.perform_async(event.id)
+#		sleep 1
+#	end
+#end
 
 
 

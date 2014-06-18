@@ -55,12 +55,7 @@ namespace :kam_do_mesta do
 		time = /\d{2}\:\d{2}/.match(time_block[1].text)
 		event.date = "#{date} #{time}"  
 		event.description = event_block.search(".section")[0].text
-  	
-  		if event.save
-  	  		SavingWorker.perform_async(event.id)
-		else
-	  		# daj do LOGu event.errors.inspect	
-  		end
+  		event.save	
 	end
 
   end
