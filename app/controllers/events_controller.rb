@@ -10,8 +10,12 @@ class EventsController < ApplicationController
     	#@types = @events.joins("RIGHT JOIN types ON types.id=events.type_id").select("types.id AS typ_id,count(*)").group("types.id,events.id").order("types.id")
     	#@events=Event.sorted.includes(:type).page(params[:page])
     else
-		@events = Event.all
-  	end
+		if current_user
+		  @events = Event.all.where("type_id IN (?)",current_user.type_ids)
+		else
+		  @events = Event.all.sorted
+  		end
+	end
 
 	if params[:typ].present?
 		@types = Type.where("id=?",params[:typ])
@@ -24,10 +28,6 @@ class EventsController < ApplicationController
 	end
   end
 
-  def calendar
- 	@events_by_date = Event.all.group_by{ |i| i.date.to_date }
-  	@date = params[:date] ? Date.parse(params[:date]) : Date.today
-  end
 
   def search
 	if params[:date].present?
@@ -44,6 +44,7 @@ class EventsController < ApplicationController
 
   def create
     @event=Event.new(event_params)
+    @event.user_id = current_user.uid
     @event.geocode
     if @event.save
       flash[:success]="Podujatie bolo úspešne vytvorené."

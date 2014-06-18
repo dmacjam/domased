@@ -43,10 +43,8 @@ class Event < ActiveRecord::Base
 
   reverse_geocoded_by :latitude, :longitude
   
-  scope :sorted, lambda{ order("events.date ASC") }
-  scope :is_type, lambda{ |typ| where(:type_id => typ)}
-
-  
+  scope :sorted, lambda{ where("events.date > ?", Date.today).order("events.date ASC") }
+  scope :is_type, lambda{ |typ| where(:type_id => typ) }
   
   
   def has_coordinates?

@@ -15,16 +15,34 @@
 </div>
 
 <div class="row">
-	<div class="col-md-4" id="datepicker"></div>
-	<div class="col-md-4 text-center"><blockquote><strong>Nájdeš tu viac ako <%= Event.all.count %> podujatí!</strong></blockquote></div>
-	<div class="col-md-4 text-center">
+	<div class="col-md-4">
+		<ul>
+			<li>Máš čas len v piatok? Vyhľadaj si všetky podujatia podľa dátumu!
+		</ul>
+		<div class="center">
+			<div id="datepicker"></div></div> 
+	</div>
+	<div class="col-md-4 text-center"><blockquote>
+		<strong>Nájdeš tu viac ako <%= Event.all.count %> podujatí!</strong></blockquote>
+		A ďalšie stále pribúdajú!	
+	</div>
+	
+	
+	<div class="col-md-4">
 		<% if current_user %>
 			<%= link_to "Profil", user_path(current_user) %>
 		<% else %>
-		<strong>Nehraj formu, prihlás sa a využívaj možnosti stránky naplno!</strong>
+			<strong>Prihlás sa a využívaj možnosti stránky naplno!</strong>
+			<br><br>
+			<ul>
+			  <li>Prispôsobený obsah práve pre teba!</li>
+			  <li>Pridávanie podujatí.</li>
+			  <li>Poznáš zaujímavú stránku na facebooku? Pridaj ju a maj prehľad o udalostiach ktoré usporiadava.</li>
+			  <li>A mnoho iného!</li>
+			</ul>
 		<% end %>
 	
-	
 	</div>
+
 </div>
 

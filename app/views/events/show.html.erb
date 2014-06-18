@@ -1,23 +1,47 @@
+<div id="fb-root"></div>
+<div class="container">
 <%= link_to("<< Spat na zoznam podujati", events_path ) %>
-
-<div class="row">
-  <div class="col-md-6">
-    <h1><%= @event.name %></h1>
+<div class="row"> 
+    <h1 class="center"><%= @event.name %></h1>
     Dátum: <%= @event.date.strftime('%d.%m.%Y') %><br>
 	Cas: <%= @event.date.strftime('%H:%M') %><br>
 	Adresa: <%= @event.address %><br>
     Typ podujatia: <%= @event.type.nil?  ? 'Nespecifikovane' : @event.type.name %><br><br>
     <small> Popis: <%= @event.description %></small>
-    <br><br>  <%= link_to "Facebook event", "http://www.facebook.com/#{@event.fb_id_number}", :target => '_blank' %>
+	<br><br>  
+	<% if @event.fb_id_number %>
+	  <%= link_to "Facebook event", "http://www.facebook.com/#{@event.fb_id_number}", :target => '_blank' %>
+	<% end %>
+</div>
 
-  </div>
+<div class="row">
+  <div class="col-md-6">
   <!-- Google Maps Embed API -->
   <iframe
-  	    width="650"
+  	    width="500"
   	    height="500"
   	    frameborder="0" style="border:0"
 		src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCnImQ5YILD6D-howUWSAdXkCTvzODJmAo&q=<%= @event.address %>">
   </iframe>
+</div>
+<div class="col-md-6">
+
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+	var disqus_shortname = 'domased'; // required: replace example with your forum shortname
+
+	(function() {
+	 var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	 dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	 })();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
 
 </div>
-
+</div>
+<div>
