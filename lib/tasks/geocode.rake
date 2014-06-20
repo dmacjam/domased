@@ -3,11 +3,14 @@ namespace :geo do
   task :without_coordinates => :environment do
 		  
 	events = Event.not_geocoded
+    
+    puts "[GEO] #{events.count} not geocoded events."	
+  	
   	events.each do |event|
   	    event.geocode
   	    event.save
   	    event.destroy unless event.geocoded?
-  	    puts "[GEO] Spracovavam #{event.name} => #{result[0].address}"
+  	    puts "[GEO] Spracovavam #{event.name} => #{event.address}"
 	  	sleep 1
 	end
   
