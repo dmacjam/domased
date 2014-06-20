@@ -34,9 +34,9 @@ namespace :kam_do_mesta do
 		main_info_block = event_block.search(".eventMainInfoBlock")
 		time_block = main_info_block.search(".timeInfo").search("span")
 	
-		event.image = event_block.search(".eventImageBlock")[0].search("a").first["href"]
-		event.name = main_info_block.search("h1")[0].text
-		type = main_info_block.search(".event-type")[0].text
+		event.image = event_block.search(".eventImageBlock").try(:[],0).search("a").first["href"]
+		event.name = main_info_block.search("h1").try(:[],0).try(:text)
+		type = main_info_block.search(".event-type").try(:[],0).try(:text)
 		case type
 	  		when "Koncert","Festival" then event.type_id = 2
 	  		when "Párty" then event.type_id = 1
@@ -50,12 +50,14 @@ namespace :kam_do_mesta do
 	  		else event.type_id = 0
 		end
 
-		event.address = main_info_block.search(".placeInfo")[0].text
-		date = time_block[0].text
-		time = /\d{2}\:\d{2}/.match(time_block[1].text)
+		event.address = main_info_block.search(".placeInfo").try(:[],0).try(:text)
+		date = time_block.try(:[],0).try(:text)
+		time = /\d{2}\:\d{2}/.match(time_block.try(:[],1).try(:text))
 		event.date = "#{date} #{time}"  
-		event.description = event_block.search(".section")[0].text
-  		event.save	
+		event.description = event_block.search(".section").try(:[],0).try(:text)
+  		if event.save
+  			puts "[KdM]#{event.name} saved"
+		end
 	end
 
   end
