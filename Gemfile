@@ -96,3 +96,6 @@ end
 gem 'heroku'
 gem 'nokogiri'
 
+#Monitoring, errors
+gem 'newrelic_rpm'
+
