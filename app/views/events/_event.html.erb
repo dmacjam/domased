@@ -1,9 +1,8 @@
 <% events.in_groups_of(3,false).each do |group| %>
-	  <div class="row">
-	    <% group.each do |event| %>
+  <div class="row">
+  <% group.each do |event| %>
   		
-
-		<div class="col-md-4">
+    <div class="col-md-4">
 		<div class="center"><%= link_to event.name, event %><br> <span class="label label-info">
 
 		<% case event.type.id %>
@@ -16,7 +15,8 @@
 		<% else %>	
 				<%= event.type.name %>
 		<% end %>
-		</span></div>
+		</span>
+		</div>
 	
 	
 	
@@ -30,9 +30,9 @@
 		<% if can? :destroy, event %>
 			<br><%= link_to("Delete", event, method: :delete ) %>
 		<% end %>	
-		</div>
+	</div>
 
 	<% end %>
-
+</div>
 <% end%>
 
