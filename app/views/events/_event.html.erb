@@ -20,9 +20,9 @@
 	
 	
 	
-		<br><%= event.date %>
-		<br><%= truncate(event.description, length: 20) %>
+		<br><%= event.date.strftime("%d.%m.%Y %H:%M") %>
 		<br><%= event.address if event.address %>	
+		<br><%= truncate(event.description, length: 200) %>
 		<% if can? :update, event %>
 			<br><%= link_to("Edit", edit_event_path(event) )  %>
 		<% end %>
