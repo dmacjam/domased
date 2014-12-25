@@ -4,15 +4,30 @@
 	<ol class="breadcrumb">
 	  <li class="active">Hlavná stránka</li>
   </ol>
-  
-<div class="jumbotron">
-  <div class="row text-center">
-  <h1><strong>domased.sk</strong><br>
-	  <small><em>Najväčší vyhľadávač podujatí v tvojom okolí.</em></small></h1>
-  <%= link_to('Pridaj nové podujatie', new_event_path, :class => ['btn','btn-warning','btn-lg']) %>
-  <%= link_to('Vyhľadaj podujatie', events_path , :class => ['btn','btn-success','btn-lg']) %>
-  </div> 
-</div>
+
+  <div class="section search-area">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="form-group">
+          <div class="col-md-6 col-md-offset-3">
+            <div class="input-group">
+          <%= form_tag(events_path, :method => 'get', :class => 'input-group') do %>
+                <%= text_field_tag(:city, params[:city] ,size: 50, class: ['form-control', 'input-lg'] ) %>
+                <%= hidden_field_tag(:lat, params[:lat]) %>
+                <%= hidden_field_tag(:lng, params[:lng]) %>
+                  <span class="input-group-addon">
+                  <%= button_tag(type: 'submit') do %>
+                      <i class="glyphicon glyphicon-search"></i>
+                  <% end %></span>
+          <% end %>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <div class="row">
 	<div class="col-md-4">
@@ -48,4 +63,87 @@
 	<% if current_user %>
 	<%= render 'events/event', events: @events %>
 	<% end %>
+
+
+  <!-- Testimonials -->
+  <div class="section">
+    <div class="container">
+      <h2>Naši spokojní používatelia</h2>
+      <div class="row">
+        <!-- Testimonial -->
+        <div class="testimonial col-md-3 col-sm-6">
+          <!-- Author Photo -->
+          <div class="author-photo">
+            <%= image_tag("user3.jpg", alt:"Author 3") %>
+          </div>
+          <div class="testimonial-bubble">
+            <blockquote>
+              <!-- Quote -->
+              <p class="quote">
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut."
+              </p>
+              <!-- Author Info -->
+              <cite class="author-info">
+                -<b>Matej Ametj,</b><br>nezadaný študent hľadajúci zábavu</cite>
+            </blockquote>
+            <div class="sprite arrow-speech-bubble"></div>
+          </div>
+        </div>
+        <!-- End Testimonial -->
+
+        <div class="testimonial col-md-3 col-sm-6">
+          <div class="author-photo">
+            <%= image_tag("user4.jpg", alt:"Author 4") %>
+          </div>
+          <div class="testimonial-bubble">
+            <blockquote>
+              <p class="quote">
+                "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+              </p>
+              <cite class="author-info">
+                - <b>Stanka Godalova,</b><br>našla skvelý darček pre svoju dcérku
+              </cite>
+            </blockquote>
+            <div class="sprite arrow-speech-bubble"></div>
+          </div>
+        </div>
+
+        <div class="testimonial col-md-3 col-sm-6">
+          <div class="author-photo">
+            <%= image_tag("user9.jpg", alt:"Author 9") %>
+          </div>
+          <div class="testimonial-bubble">
+            <blockquote>
+              <p class="quote">
+                "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo."
+              </p>
+              <cite class="author-info">
+                -<b>Daniel a Mária Pagáčovci,</b><br>mladý pár, ktorý vďaka projektu Domased prežil romantický večer</cite>
+            </blockquote>
+            <div class="sprite arrow-speech-bubble"></div>
+          </div>
+        </div>
+
+        <div class="testimonial col-md-3 col-sm-6">
+          <div class="author-photo">
+            <%= image_tag("user2.jpg", alt:"Author 2") %>
+          </div>
+          <div class="testimonial-bubble">
+            <blockquote>
+              <p class="quote">
+                "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+              </p>
+              <cite class="author-info">
+                - <b>Veronika Bláhová,</b><br>vďaka Domasedovi objavila svoju záľubu v umenie
+              </cite>
+            </blockquote>
+            <div class="sprite arrow-speech-bubble"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- End Testimonials -->
 
