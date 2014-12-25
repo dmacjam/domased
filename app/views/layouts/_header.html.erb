@@ -5,13 +5,6 @@
       <li>
         <%= link_to('Home', {:controller => 'public', :action => 'home'}) %></li>
       <li><%= link_to('About', {:controller => 'public', :action => 'about'}) %></li>
-	  <li>	<% if current_user %>
-	  			<strong><%= current_user.name %></strong>
-	</li><li>	<%= link_to "Odhlásiť sa", signout_path, id: "sign_out" %>
-  			<% else %>
-		  		<%= link_to "Prihlásenie", login_path %>
-  			<% end %>
-		</li>
     </ul>
 
     <%= link_to('Domased', {:controller => 'public', :action => 'home'}, :class => ['navbar-brand','navbar-header']) %>
