@@ -9,7 +9,7 @@ class Ability
       can [:read,:search], Event
 	    can :create, Event unless user.new_record?
 	    can :update, Event do |event|
-        event.user_id == user.id
+        !user.new_record? && event.user_id == user.id
       end
 	    can [:read,:settings,:update], User, :uid => user.uid
 	  end
