@@ -32,7 +32,7 @@
 			<% if params[:typ].blank? %>
 				<%= link_to type.name, params.merge(:typ => type.id,page: 1) %> <span class="badge"><%= type.count %></span>
 			<% else %>
-				<strong><%= type.name %></strong>(<%= link_to "remove", params.merge(typ: nil,page: 1) %>)
+				<strong><%= type.name %></strong>(<%= link_to "odstrániť filter", params.merge(typ: nil,page: 1) %>)
 			</li>
 			<% end%>
 		<% end %>
