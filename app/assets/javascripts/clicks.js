@@ -8,6 +8,13 @@ var click = function() {
     $(".service-wrapper").mouseover(function () {
         $(this).addClass("highlight-yellow");
     });
+
+    //rovnaka vyska eventov aj ked tam je iny content
+    var heights = $(".service-wrapper").map(function() {
+                return $(this).height();
+                }).get(),
+    maxHeight = Math.max.apply(null, heights);
+    $(".service-wrapper").height(maxHeight);
 }
 
 $(document).ready(click)

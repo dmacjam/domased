@@ -1,14 +1,27 @@
 <div id="fb-root"></div>
 <div class="container">
-<%= link_to("<< Spat na zoznam podujati", events_path ) %>
-<div class="row"> 
-    <h1 class="center"><%= @event.name %></h1>
-    Dátum: <%= @event.date.strftime('%d.%m.%Y') %><br>
-	Cas: <%= @event.date.strftime('%H:%M') %><br>
-	Adresa: <%= @event.address %><br>
-    Typ podujatia: <%= @event.type.nil?  ? 'Nespecifikovane' : @event.type.name %><br><br>
-    <small> Popis: <%= @event.description %></small>
-	<br><br>  
+
+
+  <div class="my-breadcrumbs">
+    <div class="container">
+      <div class="row">
+        <%= link_to("<< Spat na zoznam podujati", events_path ) %>
+      </div>
+    </div>
+  </div>
+
+
+<div class="row">
+
+    <div class="product-detail-info">
+      <h1 class="center"><%= @event.name %></h1>
+    <h5>Dátum:</h5> <%= @event.date.strftime('%d.%m.%Y') %><br>
+    <h5>Čas:</h5> <%= @event.date.strftime('%H:%M') %><br>
+    <h5>Adresa:</h5> <%= @event.address %><br>
+    <h5>Typ podujatia:</h5> <%= @event.type.nil?  ? 'Nešpecifikované' : @event.type.name %><br><br>
+    <h5>Popis:</h5> <p><%= @event.description %></p>
+    </div>
+
 	<% if @event.fb_id_number %>
 	  <%= link_to "Facebook event", "http://www.facebook.com/#{@event.fb_id_number}", :target => '_blank' %>
 	<% end %>
@@ -44,4 +57,5 @@
 
 </div>
 </div>
+
 <div>

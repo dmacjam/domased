@@ -4,6 +4,19 @@
 body {
   background: url(../page-background.png);
 }
+.breadcrumb{
+  padding: 20px 0;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    font-family: 'Open Sans', sans-serif;
+    background-color: transparent;
+  font-size: 14px;
+    margin-bottom: 10px;
+}
+
 .my-breadcrumbs {
   padding: 10px 0;
   -webkit-transform: translateZ(0);
@@ -121,7 +134,6 @@ a:hover {
 .service-wrapper {
   background: #FFF;
   margin: 20px 10px;
-  text-align: center;
   padding: 30px 20px;
   -webkit-border-radius: 5px;
   -webkit-background-clip: padding-box;
@@ -914,14 +926,14 @@ span.color-red {
 .product-image-large img {
   max-width: 100%;
 }
-.product-details h4,
-.product-details h5 {
+.product-detail-info h4,
+.product-detail-info h5 {
   font-weight: 700;
 }
-.product-details h4 {
+.product-detail-info h4 {
   margin-bottom: 20px;
 }
-.product-details h5 {
+.product-detail-info h5 {
   margin-top: 20px;
 }
 .product-details .price {

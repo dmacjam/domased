@@ -17,21 +17,22 @@
 				<%= event.type.name %>
 		<% end %>
 		</span>
-		</div>
+     </div>
 	
 	
 	    <div class="center">
 		    <br><b><%= event.date.strftime("%d.%m.%Y %H:%M") %></b>
 		    <br><b><%= event.address if event.address %></b>
         </div>
-		<br><%= truncate(event.description, length: 200) %>
-		<% if can? :update, event %>
+		<br><p></p><%= truncate(event.description, length: 200) %></p>
+
+        <% if can? :update, event %>
 			<br><%= link_to("Edit", edit_event_path(event) )  %>
 		<% end %>
-	
 		<% if can? :destroy, event %>
 			<br><%= link_to("Delete", event, method: :delete ) %>
 		<% end %>
+
     </div>
    </div>
 
