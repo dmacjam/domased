@@ -32,8 +32,8 @@
       <ul>
         <li class="logo-wrapper"><%= link_to image_tag("domased_logo.png"), {:controller => 'public', :action => 'home'} %></li>
         <li><%= link_to('Hlavná stránka', {:controller => 'public', :action => 'home'}) %></li>
+        <li><%= link_to('Zoznam podujatí', events_path ) %></li>
         <li><%= link_to('Pridaj nové podujatie', new_event_path) %></li>
-        <li><%= link_to('Vyhľadaj podujatie', events_path ) %></li>
         <li><%= link_to('O nás', {:controller => 'public', :action => 'about'}) %></li>
       </ul>
     </nav>
