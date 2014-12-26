@@ -12,7 +12,17 @@
               </ul>
             </div>
           </li>
-          <li><%= link_to('Prihlásenie', {:controller => 'public', :action => 'login'}) %></li>
+
+            <% if current_user %>
+                <li><strong><%= current_user.name %></strong></li>
+                <li><%= link_to "Odhlásiť sa", signout_path, id: "sign_out" %></li>
+            <% else %>
+                <li><%= link_to('Prihlásenie', {:controller => 'public', :action => 'login'}) %></li>
+            <% end %>
+
+
+
+
         </ul>
       </div>
 

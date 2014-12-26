@@ -1,11 +1,27 @@
 <% @page_title = 'About' %>
+
+<div class="section">
 <div class="container">
-  <div class="center">
-	<h1><strong>domased.sk</strong></br>
-  	<small>A už nikdy nepremeškáš žiadne podujatie!</small></h1>
+  <ol class="breadcrumb">
+    <li><%= link_to "Hlavná stránka", root_path %></li>
+    <li class="active">O nás</li>
+  </ol>
+
+
+
+	<h2><strong>Domased.sk</strong></h2>
+  	<h3>A už nikdy nepremeškáš žiadne podujatie!</h3>
   	<br>
-  </div>
   
-  <p>Vyhladavac podujati, ktory vznikol ako projekt na VOS. A inak Ruby on Rails je super!
-   Kontakt: jakub.macina@gmail.com</p>
+  <p>Agregátor a vyhľadávač podujatí, ktorý vznikol ako projekt na predmet VOS I na Fakulte Informatiky a Informačných Technológií Slovenskej Technickej Univerzity.
+  Dizajn stránky vznikol ako projekt piatich študentov v rámci predmetu Interakcia človeka s počítačom (IČP)</p>
+  <h3><%= link_to("Prezentácia", "http://bit.ly/domased", target: "blank") %><br></h3>
+  <h3><%= link_to("Otvorený zdrojový kód stránky", "http://bit.ly/domased_github", target: "blank") %></h3>
+
+  </div>
+
 </div>
+
+
+
+

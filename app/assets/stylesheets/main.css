@@ -18,7 +18,7 @@ body {
 }
 
 .my-breadcrumbs {
-  padding: 10px 0;
+  padding: 5px 0;
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
   -o-transform: translateZ(0);
@@ -29,7 +29,7 @@ body {
 }
 
 .section {
-  padding: 30px 0;
+  padding: 10px 0;
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
   -o-transform: translateZ(0);
@@ -1369,7 +1369,7 @@ span.color-red {
   top: 5px;
   width: 24px;
   height: 24px;
-  background-image: url(../img/social-login.png);
+  background-image: url(../social-login.png);
   background-repeat: no-repeat;
 }
 .social-login .btn-facebook-login {
@@ -1782,7 +1782,7 @@ span.color-red {
   display: block;
   width: 115px;
   height: 40px;
-  background: url(../img/stay-connected.png);
+  background: url(../stay-connected.png);
   -webkit-opacity: 0.5;
   -moz-opacity: 0.5;
   opacity: 0.5;
