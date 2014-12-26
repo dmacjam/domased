@@ -59,6 +59,6 @@ class FacebookPlacesController < ApplicationController
   private
         # Never trust parameters from the scary internet, only allow the white list through.
     def facebook_place_params
-      params.require(:facebook_place).permit(:place_id, :checked)
+      params.require(:facebook_place).permit(:place_id, :name)
     end
 end
