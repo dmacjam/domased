@@ -9,7 +9,9 @@
 
 	<h2>Podujatia <%= Date.parse(params[:date]).strftime("%d.%m.%Y") %></h2>
 
-	<%= link_to("Pridaj nove podujatie", new_event_path ) %>
-	
+	<%= link_to("Pridaj nové podujatie", new_event_path ) %>
+    <br>
+    <div class="center">Podujatí v tento deň: <b></b><%= @events.count %></b></div>
+
 	<%= render 'event', events: @events %>
 </div>

@@ -12,16 +12,28 @@
 		<h2>Podujatia <small>Vyhľadávanie</small></h2>
 	</div>
   
-  <%= link_to("Pridaj nove podujatie", new_event_path ) %>
-  <div class="formular">
-    <%= form_tag(events_path, :method => 'get', :class => ['form-search','text-center']) do %>
-				<div class="form-group">
-				<%= text_field_tag(:city, params[:city] ,size: 50 ) %>
-			   	<%= hidden_field_tag(:lat, params[:lat]) %>
-				<%= hidden_field_tag(:lng, params[:lng]) %>
-                <%= submit_tag('Hladaj', :name => nil, :class => ['btn','btn-lg','btn-success'])%>
-				</div>		
-	<% end %>
+  <%= link_to("Pridaj nové podujatie", new_event_path ) %><br><br>
+
+  <div class="section search-area">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="form-group">
+          <div class="col-md-6 col-md-offset-3">
+            <div class="input-group">
+              <%= form_tag(events_path, :method => 'get', :class => 'input-group') do %>
+                  <%= text_field_tag(:city, params[:city] ,size: 50, class: ['form-control', 'input-lg'], placeholder:"Vyhľadávaj podľa lokality" ) %>
+                  <%= hidden_field_tag(:lat, params[:lat]) %>
+                  <%= hidden_field_tag(:lng, params[:lng]) %>
+                  <span class="input-group-addon">
+                  <%= button_tag(type: 'submit') do %>
+                      <i class="glyphicon glyphicon-search"></i>
+                  <% end %></span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="facet">
