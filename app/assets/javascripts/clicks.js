@@ -15,6 +15,10 @@ var click = function() {
                 }).get(),
     maxHeight = Math.max.apply(null, heights);
     $(".service-wrapper").height(maxHeight);
+
+    //set footer year
+    //$("#year").text(new Date().getFullYear());
+    $(".footer-copyright").append(new Date().getFullYear());
 }
 
 $(document).ready(click)
