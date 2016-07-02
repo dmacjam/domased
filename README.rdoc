@@ -1,4 +1,4 @@
-== domased.sk
+== domased.sk[http://domased.herokuapp.com/]
 
 This site is a school project, where I am learning to use Ruby on Rails.
 
