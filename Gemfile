@@ -11,7 +11,7 @@ gem 'pg'
 gem 'sass-rails', '~> 4.0.0'
 
 #Add bootsrap sass
-gem 'bootstrap-sass', '~> 3.1.1'
+gem 'bootstrap-sass', '~> 3.4.1'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
